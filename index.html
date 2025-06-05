@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;SAP Enterprise Architect Exam Simulator&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Inter', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f3f4f6; /* Tailwind gray-100 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.card {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 0.75rem; /* Tailwind rounded-xl */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind shadow-lg */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0.75rem 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 0.5rem; /* Tailwind rounded-lg */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 500;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: background-color 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-primary {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #3b82f6; /* Tailwind blue-500 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-primary:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #2563eb; /* Tailwind blue-600 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-secondary {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #6b7280; /* Tailwind gray-500 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-secondary:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #4b5563; /* Tailwind gray-600 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.option-label {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0.75rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #d1d5db; /* Tailwind gray-300 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 0.5rem; /* Tailwind rounded-lg */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 0.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: background-color 0.2s, border-color 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.option-label:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #e5e7eb; /* Tailwind gray-200 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.option-label.selected {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #bfdbfe; /* Tailwind blue-200 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-color: #3b82f6; /* Tailwind blue-500 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.option-input {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.progress-bar-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #e5e7eb; /* Tailwind gray-200 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 0.25rem; /* Tailwind rounded-md */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.progress-bar {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #3b82f6; /* Tailwind blue-500 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: width 0.3s ease-in-out;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 0.25rem; /* Tailwind rounded-md */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="flex items-center justify-center min-h-screen p-4"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="app-container" class="w-full max-w-3xl"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="start-screen" class="card text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1 class="text-3xl font-bold mb-4 text-gray-800"&gt;SAP Enterprise Architect Certification Simulator&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="mb-2 text-gray-600"&gt;This is a sample exam with 40 questions.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="mb-6 text-gray-600"&gt;You will have &lt;strong id="total-time-display"&gt;60 minutes&lt;/strong&gt; to complete it.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-sm text-red-600 mb-6"&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; These are sample questions and not official SAP content. For actual exam preparation, please refer to official SAP resources.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="start-exam-btn" class="btn btn-primary text-lg"&gt;Start Exam&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="exam-screen" class="card hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex justify-between items-center mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-2xl font-semibold text-gray-800"&gt;Question &lt;span id="question-number"&gt;&lt;/span&gt; of &lt;span id="total-questions"&gt;&lt;/span&gt;&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="timer" class="text-xl font-bold text-red-600"&gt;Time: 60:00&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="progress-bar-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="progress-bar" class="progress-bar" style="width: 0%;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="question-container" class="mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p id="question-text" class="text-lg text-gray-700 mb-4"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="options-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex justify-end space-x-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button id="next-question-btn" class="btn btn-primary"&gt;Next Question&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button id="submit-exam-btn" class="btn btn-secondary hidden"&gt;Submit Exam&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="results-screen" class="card hidden text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="text-3xl font-bold mb-4 text-gray-800"&gt;Exam Completed!&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-xl text-gray-700 mb-2"&gt;Your Score:&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p id="score" class="text-4xl font-bold text-blue-600 mb-6"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p id="time-taken-display" class="text-gray-600 mb-4"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="summary-container" class="text-left max-h-96 overflow-y-auto p-4 border border-gray-200 rounded-lg mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="text-xl font-semibold mb-2 text-gray-700"&gt;Answer Summary:&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="restart-exam-btn" class="btn btn-primary"&gt;Restart Exam&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Sample Questions Data ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const questions = [</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "Which SAP methodology emphasizes an agile approach for S/4HANA implementations?", options: ["SAP Activate", "ASAP Methodology", "Waterfall Model", "TOGAF"], answer: 0 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What is the primary purpose of SAP Business Technology Platform (BTP)?", options: ["Core ERP functionalities", "Human Capital Management", "To enable innovation, integration, and extension of SAP applications", "Customer Relationship Management"], answer: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "Which of the following is a key characteristic of a good enterprise architecture principle?", options: ["Highly technical and specific to one technology", "Vague and open to multiple interpretations", "Stable, consistent, and aligned with business goals", "Frequently changing to adapt to new trends"], answer: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "In the context of SAP S/4HANA, what does 'Single Source of Truth' primarily refer to?", options: ["A single physical server hosting the database", "Consolidation of data into a unified data model reducing redundancy", "Using only SAP-developed software", "A single global instance for all business units"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "Which TOGAF phase is primarily concerned with defining the scope and approach for an architecture project?", options: ["Phase A: Architecture Vision", "Phase B: Business Architecture", "Phase C: Information Systems Architectures", "Phase H: Architecture Change Management"], answer: 0 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What is a primary benefit of using SAP Integration Suite?", options: ["It eliminates the need for custom coding", "It provides a comprehensive set of tools for process and data integration", "It only supports SAP-to-SAP integrations", "It's primarily an on-premise solution"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "Which of these is a key consideration for data migration strategy in an S/4HANA project?", options: ["Migrating all historical data regardless of relevance", "Ignoring data cleansing activities to save time", "Data volume, quality, and downtime tolerance", "Using only custom ABAP programs for migration"], answer: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What does 'RISE with SAP' primarily offer to customers?", options: ["A specific SAP hardware appliance", "A subscription-based offering for business transformation as a service", "Only SAP S/4HANA Cloud software", "Consulting services for custom development"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "In enterprise architecture, what is an 'Architecture Building Block' (ABB)?", options: ["A specific software product", "A reusable component of business, IT, or architectural capability", "A detailed project plan", "A server rack configuration"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "Which SAP solution is focused on master data governance?", options: ["SAP Analytics Cloud", "SAP Master Data Governance (MDG)", "SAP Ariba", "SAP SuccessFactors"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What is a key security principle an SAP Enterprise Architect should promote?", options: ["Granting superuser access to all project team members", "Disabling all security logs to improve performance", "Principle of Least Privilege", "Using default passwords for system accounts"], answer: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "Which of the following best describes 'Cloud Native' architecture?", options: ["Running existing monolithic applications in a virtual machine on a cloud provider", "Designing applications as a collection of microservices, leveraging cloud services", "Using only proprietary cloud provider services", "Avoiding containerization technologies"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What is the role of an Enterprise Architect in managing technical debt?", options: ["To always select the newest technology available", "To ignore it as it's a development team responsibility", "To identify, communicate, and plan for the remediation of technical debt", "To ensure no technical debt is ever incurred"], answer: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "Which of these is an example of a non-functional requirement (NFR)?", options: ["The system must allow users to create a sales order.", "The system must support 1000 concurrent users with a response time of under 2 seconds.", "The system must have a blue color theme.", "The system must integrate with the payment gateway."], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What is the primary focus of Business Process Management (BPM) in an SAP context?", options: ["Only automating manual tasks", "Designing, implementing, monitoring, and optimizing end-to-end business processes", "Developing custom user interfaces", "Managing hardware infrastructure"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "Which component of SAP BTP is primarily used for building and deploying applications?", options: ["Integration Suite", "Extension Suite (specifically Cloud Foundry, Kyma, ABAP environment)", "Data &amp; Analytics", "AI Business Services"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What is a key driver for adopting a microservices architecture?", options: ["Simplified deployment for monolithic applications", "Increased coupling between services", "Improved scalability, resilience, and independent deployability of services", "Reduced need for API management"], answer: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "How does an Enterprise Architect contribute to IT governance?", options: ["By making all IT decisions unilaterally", "By defining and enforcing IT standards, policies, and review processes", "By focusing solely on technology selection", "By outsourcing all governance responsibilities"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What is a common challenge in integrating legacy systems with modern SAP solutions?", options: ["Legacy systems always have well-documented APIs", "Differences in data formats, communication protocols, and security standards", "Legacy systems are inherently more secure", "Perfect compatibility with cloud-native services"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "SAP S/4HANA's architecture is built upon which in-memory database technology?", options: ["Oracle Database", "Microsoft SQL Server", "SAP HANA", "IBM Db2"], answer: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What is the purpose of an Architecture Review Board (ARB)?", options: ["To develop all new code for projects", "To ensure architectural solutions align with enterprise standards and strategies", "To manage project budgets", "To perform daily operational tasks"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "Which of these best describes a 'headless' SAP Commerce Cloud implementation?", options: ["An implementation with no user interface", "An implementation where the frontend presentation layer is decoupled from the backend commerce engine", "An implementation that only runs on mobile devices", "An outdated version of SAP Commerce Cloud"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "In the context of SAP, what does 'Fit-to-Standard' analysis primarily involve?", options: ["Customizing SAP software extensively to meet all unique business requirements", "Adopting standard SAP processes and functionalities with minimal modifications", "Ignoring business requirements and using only SAP defaults", "Developing all new processes from scratch within SAP"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "Which is a key benefit of using SAP Cloud ALM for managing SAP cloud solutions?", options: ["It's only for on-premise systems", "It offers implementation, operations, and service monitoring capabilities for cloud-centric customers", "It replaces the need for SAP Solution Manager entirely for all scenarios", "It's primarily a development platform"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What is a primary concern when designing an API strategy for an enterprise?", options: ["Making all APIs public without authentication", "API security, versioning, discoverability, and governance", "Using only one type of API protocol (e.g., SOAP only)", "Ensuring APIs are tightly coupled to specific applications"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "Which of the following is a core tenant of the Zero Trust security model?", options: ["Trust all users and devices within the corporate network", "Never trust, always verify; assume breach", "Focus security only on the network perimeter", "Grant broad access permissions by default"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What role does SAP Datasphere play in an enterprise data strategy?", options: ["It's a transactional ERP system", "It provides a business data fabric architecture for accessing, integrating, and managing data across hybrid and cloud landscapes", "It's solely an ETL tool for SAP BW", "It's a master data governance solution"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "An enterprise architect is evaluating a move to a multi-cloud strategy. What is a key potential benefit?", options: ["Simplified vendor management", "Reduced complexity in managing cloud services", "Ability to leverage best-of-breed services from different providers and avoid vendor lock-in", "Lower overall IT costs guaranteed"], answer: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What is the significance of 'Business Capability Mapping' in enterprise architecture?", options: ["It focuses only on IT system inventory", "It links business goals and strategies to the necessary business capabilities, which then inform IT architecture", "It's a detailed network diagram", "It primarily documents user interface designs"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "Which of the following would typically be part of an SAP S/4HANA security concept?", options: ["Disabling all authorization checks for performance", "Role-based access control, data encryption, and audit logging", "Storing passwords in plain text", "Allowing direct internet access to the production database"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What is 'scalability' in the context of system architecture?", options: ["The system's ability to be easily understood by developers", "The system's ability to handle increasing load (data, users, transactions) without degradation in performance", "The system's physical size", "The number of programming languages used to build the system"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What is a key consideration when designing for high availability (HA) in an SAP landscape?", options: ["Using the oldest available hardware", "Minimizing redundancy to save costs", "Implementing failover mechanisms, redundant components, and disaster recovery plans", "Scheduling frequent and long maintenance windows"], answer: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "The 'Universal Journal' is a key architectural innovation in which SAP solution?", options: ["SAP CRM 7.0", "SAP Business Warehouse (BW)", "SAP S/4HANA", "SAP SuccessFactors Employee Central"], answer: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "Which SAP BTP service is specifically designed for intelligent Robotic Process Automation (RPA)?", options: ["SAP AI Core", "SAP Build Process Automation (formerly SAP Intelligent RPA)", "SAP HANA Cloud", "SAP Integration Suite"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What does 'DevOps' culture and practice aim to achieve in software development and IT operations?", options: ["Strict separation between development and operations teams", "Slower, more deliberate release cycles", "Increased collaboration, automation, and faster delivery of value", "Focusing solely on manual testing procedures"], answer: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "When an Enterprise Architect defines a 'Target Architecture', what does this represent?", options: ["The current state of the IT landscape", "A detailed list of all software licenses", "The desired future state of the enterprise's technology, applications, and data environment", "The project budget"], answer: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What is a primary advantage of using an API Gateway?", options: ["It directly connects end-users to backend databases", "It provides a single entry point for APIs, handling concerns like security, rate limiting, and routing", "It eliminates the need for backend services", "It's only useful for internal APIs"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "In the context of data governance, what does 'Data Lineage' refer to?", options: ["The physical location of data storage", "The process of encrypting data at rest", "Understanding the origin, movement, and transformation of data over its lifecycle", "The age of the data"], answer: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "Which of these is a common architectural pattern for improving system resilience?", options: ["Single Point of Failure", "Circuit Breaker Pattern", "Tight Coupling", "Long-running synchronous operations"], answer: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ question: "What is the main goal of a 'Proof of Concept' (PoC) in an enterprise architecture project?", options: ["To fully implement the final solution", "To demonstrate the feasibility of a proposed solution or technology for a specific use case", "To replace user acceptance testing", "To negotiate vendor contracts"], answer: 1 }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Application State ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let currentQuestionIndex = 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let userAnswers = new Array(questions.length).fill(null);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let timerInterval;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let timeLeft = 60 * 60; // 60 minutes in seconds</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const totalExamTime = timeLeft;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- DOM Elements ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const startScreen = document.getElementById('start-screen');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const examScreen = document.getElementById('exam-screen');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const resultsScreen = document.getElementById('results-screen');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const startExamBtn = document.getElementById('start-exam-btn');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const nextQuestionBtn = document.getElementById('next-question-btn');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const submitExamBtn = document.getElementById('submit-exam-btn');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const restartExamBtn = document.getElementById('restart-exam-btn');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const questionNumberEl = document.getElementById('question-number');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const totalQuestionsEl = document.getElementById('total-questions');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const timerEl = document.getElementById('timer');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const questionTextEl = document.getElementById('question-text');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const optionsContainerEl = document.getElementById('options-container');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const scoreEl = document.getElementById('score');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const timeTakenDisplayEl = document.getElementById('time-taken-display');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const summaryContainerEl = document.getElementById('summary-container');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const progressBarEl = document.getElementById('progress-bar');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const totalTimeDisplayEl = document.getElementById('total-time-display');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Functions ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function formatTime(seconds) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const minutes = Math.floor(seconds / 60);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const secs = seconds % 60;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>totalTimeDisplayEl.textContent = formatTime(totalExamTime).split(':')[0] + " minutes";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function startTimer() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>timerInterval = setInterval(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>timeLeft--;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>timerEl.textContent = `Time: ${formatTime(timeLeft)}`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (timeLeft &lt;= 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>clearInterval(timerInterval);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>submitExam();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, 1000);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function stopTimer() { clearInterval(timerInterval); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function updateProgressBar() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const progress = ((currentQuestionIndex + 1) / questions.length) * 100;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>progressBarEl.style.width = `${progress}%`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function displayQuestion() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const question = questions[currentQuestionIndex];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>questionNumberEl.textContent = currentQuestionIndex + 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>totalQuestionsEl.textContent = questions.length;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>questionTextEl.textContent = question.question;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>optionsContainerEl.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>question.options.forEach((option, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const optionId = `option-${index}`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const optionLabel = document.createElement('label');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>optionLabel.htmlFor = optionId;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>optionLabel.classList.add('option-label');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (userAnswers[currentQuestionIndex] === index) { optionLabel.classList.add('selected'); }</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const optionInput = document.createElement('input');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>optionInput.type = 'radio';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>optionInput.name = 'option';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>optionInput.id = optionId;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>optionInput.value = index;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>optionInput.classList.add('option-input');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>optionInput.checked = userAnswers[currentQuestionIndex] === index;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>optionInput.addEventListener('change', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>userAnswers[currentQuestionIndex] = parseInt(optionInput.value);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>document.querySelectorAll('.option-label').forEach(label =&gt; label.classList.remove('selected'));</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>optionLabel.classList.add('selected');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                </span>optionLabel.appendChild(optionInput);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>optionLabel.append(` ${String.fromCharCode(65 + index)}. ${option}`);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>optionsContainerEl.appendChild(optionLabel);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>updateProgressBar();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (currentQuestionIndex === questions.length - 1) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>nextQuestionBtn.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>submitExamBtn.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>nextQuestionBtn.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>submitExamBtn.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function startExam() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>currentQuestionIndex = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>userAnswers.fill(null);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>timeLeft = totalExamTime;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>timerEl.textContent = `Time: ${formatTime(timeLeft)}`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>startScreen.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>resultsScreen.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>examScreen.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>startTimer();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>displayQuestion();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function nextQuestion() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (currentQuestionIndex &lt; questions.length - 1) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>currentQuestionIndex++;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>displayQuestion();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function submitExam() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stopTimer();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>examScreen.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>resultsScreen.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let correctAnswers = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>questions.forEach((q, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (userAnswers[index] === q.answer) { correctAnswers++; }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>scoreEl.textContent = `${correctAnswers} / ${questions.length}`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const timeTaken = totalExamTime - timeLeft;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>timeTakenDisplayEl.textContent = `Time Taken: ${formatTime(timeTaken)}`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>summaryContainerEl.innerHTML = '&lt;h3 class="text-xl font-semibold mb-3 text-gray-700 border-b pb-2"&gt;Answer Summary:&lt;/h3&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const ul = document.createElement('ul');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>ul.classList.add('space-y-3');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>questions.forEach((q, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const li = document.createElement('li');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>li.classList.add('p-3', 'rounded-md');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const userAnswerText = userAnswers[index] !== null ? q.options[userAnswers[index]] : "Not Answered";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const correctAnswerText = q.options[q.answer];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const isCorrect = userAnswers[index] === q.answer;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>li.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="font-medium text-gray-800"&gt;Q${index + 1}: ${q.question}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-sm ${isCorrect ? 'text-green-600' : 'text-red-600'}"&gt;Your answer: ${userAnswerText}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>${!isCorrect ? `&lt;p class="text-sm text-green-700"&gt;Correct answer: ${correctAnswerText}&lt;/p&gt;` : ''}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>li.classList.add(isCorrect ? 'bg-green-50' : 'bg-red-50');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ul.appendChild(li);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>summaryContainerEl.appendChild(ul);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Event Listeners ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>startExamBtn.addEventListener('click', startExam);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>nextQuestionBtn.addEventListener('click', nextQuestion);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>submitExamBtn.addEventListener('click', () =&gt; { submitExam(); });</p>
+<p class="p1"><span class="Apple-converted-space">        </span>restartExamBtn.addEventListener('click', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>resultsScreen.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>startScreen.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>progressBarEl.style.width = `0%`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
