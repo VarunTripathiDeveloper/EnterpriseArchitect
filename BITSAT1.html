@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BITSAT Mock Test</title>
+    <title>BITSAT Mock Test - 75 Questions</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -16,29 +16,38 @@
             justify-content: center;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             background-color: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 20px 40px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            padding: 25px 45px;
+            margin-bottom: 30px;
         }
         h1 {
-            color: #1a237e;
+            color: #1a237e; /* Dark blue */
             text-align: center;
             border-bottom: 2px solid #e0e0e0;
             padding-bottom: 15px;
+            margin-top: 0;
+        }
+        h2.section-title {
+            color: #283593; /* Indigo */
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #c5cae9;
         }
         .question-container {
             margin-bottom: 25px;
             padding: 15px;
-            border: 1px solid #eeeeee;
+            border: 1px solid #e0e0e0; /* Lighter border */
             border-radius: 8px;
-            background-color: #fafafa;
+            background-color: #f9f9f9; /* Slightly off-white */
         }
         .question-text {
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1.05em; /* Slightly smaller for more questions */
             margin-bottom: 15px;
         }
         .options-list {
@@ -47,7 +56,7 @@
             margin: 0;
         }
         .options-list li {
-            margin-bottom: 10px;
+            margin-bottom: 8px; /* Reduced margin for denser packing */
         }
         .options-list label {
             display: block;
@@ -56,29 +65,29 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s, border-color 0.3s;
+            transition: background-color 0.2s, border-color 0.2s;
+            font-size: 0.95em;
         }
         .options-list label:hover {
-            background-color: #e3f2fd;
-            border-color: #90caf9;
+            background-color: #e8eaf6; /* Lighter indigo for hover */
+            border-color: #9fa8da;
         }
         .options-list input[type="radio"] {
-            margin-right: 10px;
             display: none; /* Hide the default radio button */
         }
         .options-list input[type="radio"]:checked + span {
             font-weight: bold;
+            color: #303f9f; /* Indigo for selected text */
         }
 
-        /* Styling for feedback */
         .options-list label.correct {
-            background-color: #e8f5e9;
-            border-color: #81c784;
+            background-color: #dcedc8; /* Lighter green */
+            border-color: #a5d6a7;
             color: #2e7d32;
         }
         .options-list label.incorrect {
-            background-color: #ffebee;
-            border-color: #e57373;
+            background-color: #ffcdd2; /* Lighter red */
+            border-color: #ef9a9a;
             color: #c62828;
         }
 
@@ -87,25 +96,25 @@
             margin-top: 30px;
         }
         button {
-            background-color: #3f51b5;
+            background-color: #3f51b5; /* Standard Indigo */
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 12px 25px; /* Adjusted padding */
             font-size: 1em;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #303f9f;
+            background-color: #303f9f; /* Darker Indigo */
         }
         button:disabled {
-            background-color: #9e9e9e;
+            background-color: #bdbdbd; /* Grey for disabled */
             cursor: not-allowed;
         }
         #results {
             text-align: center;
-            font-size: 1.5em;
+            font-size: 1.4em;
             font-weight: bold;
             margin-top: 30px;
             padding: 20px;
@@ -120,20 +129,55 @@
             background-color: #ffebee;
             color: #c62828;
         }
-
         #try-again-btn {
             display: none; /* Hidden by default */
             margin-left: 10px;
+            background-color: #5c6bc0; /* Lighter indigo for try again */
+        }
+        #try-again-btn:hover {
+            background-color: #3949ab;
+        }
+         .progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 20px;
+            background-color: #4caf50; /* Green */
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            font-size: 0.8em;
+            border-radius: 5px 0 0 5px;
+            transition: width 0.3s ease-in-out;
+        }
+        .timer {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #d32f2f; /* Red for timer */
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>BITSAT Mini Mock Test</h1>
-        <p>Select the correct answer for each question and click "Submit" at the bottom to see your score.</p>
+        <h1>BITSAT Mock Test (75 Questions)</h1>
+        
+        <div class="timer" id="timer">Time Remaining: 90:00</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar">0%</div>
+        </div>
+        
+        <p>Select the correct answer for each question. Click "Submit Answers" when you are done or when time is up.</p>
         
         <form id="quiz-form">
-            </form>
+            <!-- Sections and Questions will be dynamically inserted here by JavaScript -->
+        </form>
 
         <div class="button-container">
             <button type="submit" id="submit-btn">Submit Answers</button>
@@ -146,53 +190,464 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const quizData = [
+                // Physics - 15 Questions
                 {
                     section: "Physics",
-                    question: "A solid sphere, a disc, and a solid cylinder of the same mass and radius are allowed to roll down (from rest) on an inclined plane. Which object will reach the bottom first?",
-                    options: ["Solid sphere", "Disc", "Solid cylinder", "All will reach at the same time"],
-                    correct: "Solid sphere"
+                    question: "The dimensional formula for gravitational constant (G) is:",
+                    options: ["ML³T⁻²", "M⁻¹L³T⁻²", "ML²T⁻²", "M⁻¹L²T⁻²"],
+                    correct: "M⁻¹L³T⁻²"
+                },
+                {
+                    section: "Physics",
+                    question: "A body of mass 5 kg is moving with a velocity of 10 m/s. A force is applied to it for 5 seconds so that its velocity becomes 20 m/s. The force applied is:",
+                    options: ["5 N", "10 N", "15 N", "20 N"],
+                    correct: "10 N"
+                },
+                {
+                    section: "Physics",
+                    question: "The work done in moving a charge of 2 C across two points having a potential difference of 10 V is:",
+                    options: ["2 J", "5 J", "20 J", "0.2 J"],
+                    correct: "20 J"
+                },
+                {
+                    section: "Physics",
+                    question: "Which phenomenon is responsible for the blue color of the sky?",
+                    options: ["Reflection", "Refraction", "Dispersion", "Scattering"],
+                    correct: "Scattering"
+                },
+                {
+                    section: "Physics",
+                    question: "The escape velocity from the Earth's surface is approximately:",
+                    options: ["7.9 km/s", "11.2 km/s", "9.8 m/s²", "3 x 10⁸ m/s"],
+                    correct: "11.2 km/s"
+                },
+                {
+                    section: "Physics",
+                    question: "In Young's double-slit experiment, if the separation between slits is halved and the distance between slits and screen is doubled, the fringe width becomes:",
+                    options: ["Half", "Double", "Four times", "Remains same"],
+                    correct: "Four times"
+                },
+                {
+                    section: "Physics",
+                    question: "A p-n junction diode can be used as a:",
+                    options: ["Rectifier", "Amplifier", "Oscillator", "Attenuator"],
+                    correct: "Rectifier"
+                },
+                {
+                    section: "Physics",
+                    question: "The specific heat of water is:",
+                    options: ["1 cal/g°C", "4.186 J/g°C", "Both A and B", "None of these"],
+                    correct: "Both A and B"
+                },
+                {
+                    section: "Physics",
+                    question: "A transformer works on the principle of:",
+                    options: ["Self-induction", "Mutual induction", "Eddy currents", "Hysteresis"],
+                    correct: "Mutual induction"
+                },
+                {
+                    section: "Physics",
+                    question: "The energy equivalent of 1 atomic mass unit (amu) is approximately:",
+                    options: ["1.602 x 10⁻¹⁹ J", "931.5 MeV", "1.492 x 10⁻¹⁰ J", "Both B and C"],
+                    correct: "931.5 MeV"
+                },
+                {
+                    section: "Physics",
+                    question: "Which of the following is NOT a unit of pressure?",
+                    options: ["Pascal", "Bar", "Torr", "Newton"],
+                    correct: "Newton"
+                },
+                {
+                    section: "Physics",
+                    question: "The moment of inertia of a thin circular ring of mass M and radius R about an axis passing through its center and perpendicular to its plane is:",
+                    options: ["MR²/2", "MR²", "2/5 MR²", "3/2 MR²"],
+                    correct: "MR²"
+                },
+                {
+                    section: "Physics",
+                    question: "For an ideal gas, the internal energy is a function of:",
+                    options: ["Temperature only", "Volume only", "Pressure only", "Temperature and Volume"],
+                    correct: "Temperature only"
+                },
+                {
+                    section: "Physics",
+                    question: "The resolving power of a telescope increases with:",
+                    options: ["Decrease in focal length of eyepiece", "Increase in diameter of objective", "Increase in focal length of objective", "Decrease in diameter of objective"],
+                    correct: "Increase in diameter of objective"
+                },
+                {
+                    section: "Physics",
+                    question: "According to Bohr's theory, the angular momentum of an electron in the nth orbit is:",
+                    options: ["nh/2π", "n²h/2π", "nh/4π", "n²h²/4π²"],
+                    correct: "nh/2π"
+                },
+
+                // Chemistry - 15 Questions
+                {
+                    section: "Chemistry",
+                    question: "The number of moles of solute present in 1 kg of solvent is called:",
+                    options: ["Molarity", "Molality", "Normality", "Mole fraction"],
+                    correct: "Molality"
                 },
                 {
                     section: "Chemistry",
-                    question: "What is the hybridization of the central atom in SF₄?",
-                    options: ["sp³d", "sp³", "sp²", "sp³d²"],
-                    correct: "sp³d"
+                    question: "Which of the following elements has the highest electronegativity?",
+                    options: ["Chlorine", "Fluorine", "Bromine", "Iodine"],
+                    correct: "Fluorine"
+                },
+                {
+                    section: "Chemistry",
+                    question: "The shape of an $sp^3$ hybridized orbital is:",
+                    options: ["Linear", "Trigonal planar", "Tetrahedral", "Octahedral"],
+                    correct: "Tetrahedral"
+                },
+                {
+                    section: "Chemistry",
+                    question: "Which of the following is a strong acid?",
+                    options: ["CH₃COOH", "H₂CO₃", "HClO₄", "HCN"],
+                    correct: "HClO₄"
+                },
+                {
+                    section: "Chemistry",
+                    question: "The process of converting a liquid into vapor at any temperature below its boiling point is called:",
+                    options: ["Boiling", "Evaporation", "Condensation", "Sublimation"],
+                    correct: "Evaporation"
+                },
+                {
+                    section: "Chemistry",
+                    question: "Which of the following is an example of a thermosetting polymer?",
+                    options: ["Polythene", "PVC", "Bakelite", "Nylon-66"],
+                    correct: "Bakelite"
+                },
+                {
+                    section: "Chemistry",
+                    question: "The oxidation state of Manganese (Mn) in KMnO₄ is:",
+                    options: ["+2", "+4", "+6", "+7"],
+                    correct: "+7"
+                },
+                {
+                    section: "Chemistry",
+                    question: "Which gas is produced when metals react with acids?",
+                    options: ["Oxygen", "Nitrogen", "Hydrogen", "Carbon dioxide"],
+                    correct: "Hydrogen"
+                },
+                {
+                    section: "Chemistry",
+                    question: "The general formula for alkanes is:",
+                    options: ["CnH₂n", "CnH₂n₊₂", "CnH₂n₋₂", "CnH₂n₊₁OH"],
+                    correct: "CnH₂n₊₂"
+                },
+                {
+                    section: "Chemistry",
+                    question: "Which of the following is known as 'laughing gas'?",
+                    options: ["NO", "N₂O", "NO₂", "N₂O₃"],
+                    correct: "N₂O"
+                },
+                 {
+                    section: "Chemistry",
+                    question: "The most abundant element in the Earth's crust is:",
+                    options: ["Oxygen", "Silicon", "Aluminum", "Iron"],
+                    correct: "Oxygen"
+                },
+                {
+                    section: "Chemistry",
+                    question: "Which type of bond is present in an N₂ molecule?",
+                    options: ["Single bond", "Double bond", "Triple bond", "Ionic bond"],
+                    correct: "Triple bond"
+                },
+                {
+                    section: "Chemistry",
+                    question: "The pH of pure water at 25°C is:",
+                    options: ["0", "7", "14", "1"],
+                    correct: "7"
+                },
+                {
+                    section: "Chemistry",
+                    question: "What is the common name for CH₃OH?",
+                    options: ["Ethanol", "Methanol", "Propanol", "Acetic acid"],
+                    correct: "Methanol"
+                },
+                {
+                    section: "Chemistry",
+                    question: "Radioactive decay follows which order of kinetics?",
+                    options: ["Zero order", "First order", "Second order", "Third order"],
+                    correct: "First order"
+                },
+
+                // Mathematics - 15 Questions
+                {
+                    section: "Mathematics",
+                    question: "If A and B are two sets such that n(A) = 20, n(B) = 25 and n(A ∪ B) = 35, then n(A ∩ B) is:",
+                    options: ["5", "10", "15", "45"],
+                    correct: "10"
                 },
                 {
                     section: "Mathematics",
-                    question: "If the roots of the equation x² - 8x + a² - 6a = 0 are real, then:",
-                    options: ["a ≤ -2 or a ≥ 8", "-2 < a < 8", "a > 8", "a < -2"],
-                    correct: "a ≤ -2 or a ≥ 8"
+                    question: "The value of sin(75°) is:",
+                    options: ["(√3+1)/2√2", "(√3-1)/2√2", "(√3+1)/2", "(√2+1)/2√3"],
+                    correct: "(√3+1)/2√2"
+                },
+                {
+                    section: "Mathematics",
+                    question: "If the matrix A = [[1, x], [3, 2]] is singular, then the value of x is:",
+                    options: ["2/3", "3/2", "6", "1/6"],
+                    correct: "2/3"
+                },
+                {
+                    section: "Mathematics",
+                    question: "The derivative of e^(sin x) with respect to x is:",
+                    options: ["e^(sin x)", "cos x * e^(sin x)", "sin x * e^(sin x)", "e^(cos x)"],
+                    correct: "cos x * e^(sin x)"
+                },
+                {
+                    section: "Mathematics",
+                    question: "The distance between the points (1, 2) and (4, 6) is:",
+                    options: ["3", "4", "5", "√7"],
+                    correct: "5"
+                },
+                {
+                    section: "Mathematics",
+                    question: "The probability of getting a sum of 9 from two throws of a dice is:",
+                    options: ["1/6", "1/8", "1/9", "1/12"],
+                    correct: "1/9"
+                },
+                {
+                    section: "Mathematics",
+                    question: "The value of log₂(16) is:",
+                    options: ["2", "3", "4", "8"],
+                    correct: "4"
+                },
+                {
+                    section: "Mathematics",
+                    question: "The roots of the quadratic equation x² - 5x + 6 = 0 are:",
+                    options: ["2, 3", "-2, -3", "2, -3", "-2, 3"],
+                    correct: "2, 3"
+                },
+                {
+                    section: "Mathematics",
+                    question: "The eccentricity of an ellipse x²/a² + y²/b² = 1 (a > b) is given by:",
+                    options: ["√(1 - b²/a²)", "√(1 + b²/a²)", "√(b²/a² - 1)", "√(a²/b² - 1)"],
+                    correct: "√(1 - b²/a²)"
+                },
+                {
+                    section: "Mathematics",
+                    question: "The integral of 1/x dx is:",
+                    options: ["ln|x| + C", "x² + C", "-1/x² + C", "1 + C"],
+                    correct: "ln|x| + C"
                 },
                  {
+                    section: "Mathematics",
+                    question: "If a vector makes angles α, β, γ with the x, y, z axes respectively, then cos²α + cos²β + cos²γ is equal to:",
+                    options: ["0", "1", "2", "-1"],
+                    correct: "1"
+                },
+                {
+                    section: "Mathematics",
+                    question: "The number of terms in the expansion of (a + b)ⁿ is:",
+                    options: ["n", "n+1", "n-1", "2n"],
+                    correct: "n+1"
+                },
+                {
+                    section: "Mathematics",
+                    question: "The slope of the line 3x + 4y = 7 is:",
+                    options: ["3/4", "-3/4", "4/3", "-4/3"],
+                    correct: "-3/4"
+                },
+                {
+                    section: "Mathematics",
+                    question: "The value of tan⁻¹(1) + cos⁻¹(-1/2) + sin⁻¹(-1/2) is:",
+                    options: ["π/4", "3π/4", "5π/4", "π/2"],
+                    correct: "3π/4"
+                },
+                {
+                    section: "Mathematics",
+                    question: "The complex number (1 + i)² is equal to:",
+                    options: ["2i", "-2i", "1 - i", "2"],
+                    correct: "2i"
+                },
+
+                // English Proficiency - 15 Questions
+                {
                     section: "English Proficiency",
-                    question: "Choose the word that is most nearly opposite in meaning to the word 'Venerate'.",
-                    options: ["Despise", "Respect", "Condemn", "Ignore"],
-                    correct: "Despise"
+                    question: "Choose the word which is most nearly the SAME in meaning as 'Ephemeral'.",
+                    options: ["Eternal", "Transient", "Strong", "Beautiful"],
+                    correct: "Transient"
+                },
+                {
+                    section: "English Proficiency",
+                    question: "Choose the word which is most OPPOSITE in meaning to 'Benevolent'.",
+                    options: ["Kind", "Generous", "Malevolent", "Friendly"],
+                    correct: "Malevolent"
+                },
+                {
+                    section: "English Proficiency",
+                    question: "Identify the part of the sentence that has an error: 'He is one of the tallest boy in the class.'",
+                    options: ["He is", "one of the tallest boy", "in the class", "No error"],
+                    correct: "one of the tallest boy"
+                },
+                {
+                    section: "English Proficiency",
+                    question: "Fill in the blank: 'She has a great aptitude ___ learning languages.'",
+                    options: ["in", "for", "at", "with"],
+                    correct: "for"
+                },
+                {
+                    section: "English Proficiency",
+                    question: "Select the correctly spelt word.",
+                    options: ["Accomodate", "Acommodate", "Accommodate", "Acoomodate"],
+                    correct: "Accommodate"
+                },
+                {
+                    section: "English Proficiency",
+                    question: "The phrase 'a Herculean task' means:",
+                    options: ["An easy task", "A very difficult task", "A task for heroes", "A worthless task"],
+                    correct: "A very difficult task"
+                },
+                {
+                    section: "English Proficiency",
+                    question: "Choose the synonym for 'Ubiquitous'.",
+                    options: ["Rare", "Scarce", "Omnipresent", "Specific"],
+                    correct: "Omnipresent"
+                },
+                {
+                    section: "English Proficiency",
+                    question: "Choose the antonym for 'Explicit'.",
+                    options: ["Clear", "Obvious", "Implicit", "Precise"],
+                    correct: "Implicit"
+                },
+                {
+                    section: "English Proficiency",
+                    question: "Complete the sentence: 'Despite his efforts, he could not ___ his goal.'",
+                    options: ["achieve", "acieve", "acheive", "acheve"],
+                    correct: "achieve"
+                },
+                {
+                    section: "English Proficiency",
+                    question: "What is the plural of 'crisis'?",
+                    options: ["Crisises", "Crises", "Crisi", "Crisum"],
+                    correct: "Crises"
+                },
+                {
+                    section: "English Proficiency",
+                    question: "Identify the figure of speech: 'The wind whispered through the trees.'",
+                    options: ["Simile", "Metaphor", "Personification", "Hyperbole"],
+                    correct: "Personification"
+                },
+                {
+                    section: "English Proficiency",
+                    question: "One who knows everything is called:",
+                    options: ["Omnipotent", "Omniscient", "Omnipresent", "Invincible"],
+                    correct: "Omniscient"
+                },
+                {
+                    section: "English Proficiency",
+                    question: "Find the error: 'Neither of the two brothers are trustworthy.'",
+                    options: ["Neither of", "the two brothers", "are trustworthy", "No error"],
+                    correct: "are trustworthy" // Should be 'is trustworthy'
+                },
+                {
+                    section: "English Proficiency",
+                    question: "The idiom 'to beat around the bush' means:",
+                    options: ["To speak directly", "To avoid the main topic", "To clear bushes", "To search for something"],
+                    correct: "To avoid the main topic"
+                },
+                {
+                    section: "English Proficiency",
+                    question: "Choose the correct preposition: 'He is senior ___ me by two years.'",
+                    options: ["than", "to", "from", "over"],
+                    correct: "to"
+                },
+
+                // Logical Reasoning - 15 Questions
+                {
+                    section: "Logical Reasoning",
+                    question: "Find the next number in the series: 2, 5, 10, 17, 26, ?",
+                    options: ["35", "37", "39", "41"],
+                    correct: "37"
                 },
                 {
                     section: "Logical Reasoning",
-                    question: "In a certain code, 'REASON' is written as 'SDBRPM'. How is 'THINK' written in that code?",
-                    options: ["SGHMJ", "UIJOL", "UHHMJ", "SGIMK"],
-                    correct: "SGHMJ"
+                    question: "'Book' is to 'Read' as 'Fork' is to:",
+                    options: ["Write", "Eat", "Cut", "Draw"],
+                    correct: "Eat"
                 },
                 {
-                    section: "Physics",
-                    question: "In a series LCR circuit, the voltage across the inductor and capacitor are 40 V and 20 V respectively and the voltage across the resistor is 15 V. What is the total voltage of the source?",
-                    options: ["75 V", "35 V", "25 V", "45 V"],
-                    correct: "25 V"
+                    section: "Logical Reasoning",
+                    question: "If PALE is coded as 2134, EARTH is coded as 41590, how is PEARL coded?",
+                    options: ["24153", "25413", "23415", "24135"],
+                    correct: "24153"
+                },
+                {
+                    section: "Logical Reasoning",
+                    question: "Pointing to a photograph, a man said, 'I have no brother or sister but that man's father is my father's son.' Whose photograph was it?",
+                    options: ["His own", "His son's", "His father's", "His nephew's"],
+                    correct: "His son's"
+                },
+                {
+                    section: "Logical Reasoning",
+                    question: "Which word does NOT belong with the others?",
+                    options: ["Inch", "Kilogram", "Centimeter", "Yard"],
+                    correct: "Kilogram"
+                },
+                {
+                    section: "Logical Reasoning",
+                    question: "If 'South-East' becomes 'North', 'North-East' becomes 'West' and so on. What will 'West' become?",
+                    options: ["North-East", "South-East", "East", "North-West"],
+                    correct: "South-East"
+                },
+                {
+                    section: "Logical Reasoning",
+                    question: "Arrange the words in a meaningful sequence: 1. Police 2. Punishment 3. Crime 4. Judge 5. Judgement",
+                    options: ["3,1,2,4,5", "3,1,4,5,2", "1,2,4,3,5", "3,1,4,2,5"],
+                    correct: "3,1,4,5,2"
+                },
+                {
+                    section: "Logical Reasoning",
+                    question: "Find the missing term: A, D, I, P, ?",
+                    options: ["W", "X", "Y", "Z"],
+                    correct: "Y" // Squares of positions: 1, 4, 9, 16, 25(Y)
+                },
+                {
+                    section: "Logical Reasoning",
+                    question: "If '+' means '÷', '÷' means '-', '-' means '×', and '×' means '+', then 12 + 6 ÷ 3 - 2 × 8 = ?",
+                    options: ["2", "4", "18", "-20"],
+                    correct: "4" // 12/6 - 3*2 + 8 = 2 - 6 + 8 = 4
+                },
+                {
+                    section: "Logical Reasoning",
+                    question: "Choose the figure which is different from the rest.",
+                    options: ["Triangle", "Square", "Circle", "Rectangle"],
+                    correct: "Circle" // Others are polygons
                 },
                  {
-                    section: "Chemistry",
-                    question: "Which of the following is responsible for the cleansing action of soap?",
-                    options: ["Saponification", "Hydrolysis", "Esterification", "Emulsification"],
-                    correct: "Emulsification"
+                    section: "Logical Reasoning",
+                    question: "A man walks 5 km towards South and then turns to the right. After walking 3 km he turns to the left and walks 5 km. Now in which direction is he from the starting place?",
+                    options: ["West", "South", "North-East", "South-West"],
+                    correct: "South-West"
                 },
                 {
-                    section: "Mathematics",
-                    question: "The value of ∫[0 to π/2] (√sin(x) / (√sin(x) + √cos(x))) dx is:",
-                    options: ["π/2", "π/4", "0", "1"],
-                    correct: "π/4"
+                    section: "Logical Reasoning",
+                    question: "Statement: All apples are red. Some red things are fruits. Conclusion I: Some apples are fruits. Conclusion II: All red things are apples.",
+                    options: ["Only Conclusion I follows", "Only Conclusion II follows", "Either I or II follows", "Neither I nor II follows"],
+                    correct: "Neither I nor II follows"
+                },
+                {
+                    section: "Logical Reasoning",
+                    question: "How many meaningful English words can be formed with the letters A, E, R, D, using each letter only once in each word?",
+                    options: ["One", "Two", "Three", "More than three"],
+                    correct: "More than three" // DARE, READ, DEAR, RADE (archaic)
+                },
+                {
+                    section: "Logical Reasoning",
+                    question: "Select the related word/letters/number from the given alternatives: Flow : River :: Stagnant : ?",
+                    options: ["Rain", "Stream", "Pool", "Canal"],
+                    correct: "Pool"
+                },
+                {
+                    section: "Logical Reasoning",
+                    question: "Which number will complete the series? 3, 7, 15, 31, 63, ___",
+                    options: ["127", "125", "92", "115"],
+                    correct: "127" // Pattern: x*2 + 1
                 }
             ];
 
@@ -200,20 +655,63 @@
             const submitBtn = document.getElementById('submit-btn');
             const resultsContainer = document.getElementById('results');
             const tryAgainBtn = document.getElementById('try-again-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const timerDisplay = document.getElementById('timer');
+
+            let currentSection = "";
+            let questionCounter = 0;
+            const totalTime = 90 * 60; // 90 minutes in seconds
+            let timeLeft = totalTime;
+            let timerInterval;
+
+            function startTimer() {
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    const minutes = Math.floor(timeLeft / 60);
+                    const seconds = timeLeft % 60;
+                    timerDisplay.textContent = `Time Remaining: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        timerDisplay.textContent = "Time's Up!";
+                        submitBtn.click(); // Auto-submit
+                    }
+                }, 1000);
+            }
+
+
+            function updateProgressBar() {
+                const answeredQuestions = Array.from(quizForm.querySelectorAll('input[type="radio"]:checked')).length;
+                const progress = (answeredQuestions / quizData.length) * 100;
+                progressBar.style.width = progress + '%';
+                progressBar.textContent = Math.round(progress) + '%';
+            }
 
             function buildQuiz() {
                 quizData.forEach((item, index) => {
-                    const questionNumber = index + 1;
+                    if (item.section !== currentSection) {
+                        currentSection = item.section;
+                        const sectionTitle = document.createElement('h2');
+                        sectionTitle.className = 'section-title';
+                        sectionTitle.textContent = currentSection;
+                        quizForm.appendChild(sectionTitle);
+                        questionCounter = 0; // Reset for new section
+                    }
+                    questionCounter++;
+                    const questionNumberOverall = index + 1;
+
                     const questionContainer = document.createElement('div');
                     questionContainer.className = 'question-container';
+                    questionContainer.id = `q_container_${questionNumberOverall}`;
+
 
                     questionContainer.innerHTML = `
-                        <p class="question-text">${questionNumber}. [${item.section}] ${item.question}</p>
-                        <ul class="options-list" id="q${questionNumber}-options">
+                        <p class="question-text">${questionCounter}. ${item.question}</p>
+                        <ul class="options-list" id="q${questionNumberOverall}-options">
                             ${item.options.map(option => `
                                 <li>
                                     <label>
-                                        <input type="radio" name="q${questionNumber}" value="${option}">
+                                        <input type="radio" name="q${questionNumberOverall}" value="${option}">
                                         <span>${option}</span>
                                     </label>
                                 </li>
@@ -222,15 +720,21 @@
                     `;
                     quizForm.appendChild(questionContainer);
                 });
+                // Add event listener for progress bar update
+                quizForm.addEventListener('change', updateProgressBar);
+                startTimer();
             }
 
             function showResults() {
+                clearInterval(timerInterval); // Stop timer on submit
                 let score = 0;
-                
+                let physicsScore = 0, chemistryScore = 0, mathsScore = 0, englishScore = 0, reasoningScore = 0;
+                const questionsPerSection = 15;
+
                 quizData.forEach((item, index) => {
-                    const questionNumber = index + 1;
-                    const optionsList = document.getElementById(`q${questionNumber}-options`);
-                    const selectedOption = quizForm.querySelector(`input[name="q${questionNumber}"]:checked`);
+                    const questionNumberOverall = index + 1;
+                    const optionsList = document.getElementById(`q${questionNumberOverall}-options`);
+                    const selectedOptionRadio = quizForm.querySelector(`input[name="q${questionNumberOverall}"]:checked`);
                     
                     const allLabels = optionsList.querySelectorAll('label');
                     allLabels.forEach(label => {
@@ -238,29 +742,48 @@
                         if (input.value === item.correct) {
                            label.classList.add('correct'); // Highlight the correct answer
                         }
+                        // Disable further clicks on radio buttons
+                        input.disabled = true;
                     });
 
-                    if (selectedOption) {
-                        if (selectedOption.value === item.correct) {
+                    if (selectedOptionRadio) {
+                        const selectedLabel = selectedOptionRadio.parentElement;
+                        if (selectedOptionRadio.value === item.correct) {
                             score++;
+                            if (item.section === "Physics") physicsScore++;
+                            else if (item.section === "Chemistry") chemistryScore++;
+                            else if (item.section === "Mathematics") mathsScore++;
+                            else if (item.section === "English Proficiency") englishScore++;
+                            else if (item.section === "Logical Reasoning") reasoningScore++;
                         } else {
-                            // Highlight the user's wrong choice
-                            selectedOption.parentElement.classList.add('incorrect');
+                            selectedLabel.classList.add('incorrect'); // Highlight the user's wrong choice
                         }
                     }
                 });
 
                 resultsContainer.style.display = 'block';
-                resultsContainer.textContent = `You scored ${score} out of ${quizData.length}`;
+                let resultsHTML = `
+                    <p><strong>Total Score: ${score} out of ${quizData.length}</strong></p>
+                    <p>Physics: ${physicsScore}/${questionsPerSection}</p>
+                    <p>Chemistry: ${chemistryScore}/${questionsPerSection}</p>
+                    <p>Mathematics: ${mathsScore}/${questionsPerSection}</p>
+                    <p>English Proficiency: ${englishScore}/${questionsPerSection}</p>
+                    <p>Logical Reasoning: ${reasoningScore}/${questionsPerSection}</p>
+                `;
+                resultsContainer.innerHTML = resultsHTML;
 
-                if (score >= quizData.length / 2) {
-                    resultsContainer.className = 'success';
+
+                if (score >= quizData.length / 2) { // Arbitrary pass mark
+                    resultsContainer.classList.add('success');
+                     resultsContainer.classList.remove('fail');
                 } else {
-                    resultsContainer.className = 'fail';
+                    resultsContainer.classList.add('fail');
+                    resultsContainer.classList.remove('success');
                 }
 
                 submitBtn.disabled = true;
                 tryAgainBtn.style.display = 'inline-block';
+                window.scrollTo(0, document.body.scrollHeight); // Scroll to show results
             }
 
             quizForm.addEventListener('submit', function(event) {
@@ -273,6 +796,7 @@
             });
 
             buildQuiz();
+            updateProgressBar(); // Initial call to set progress to 0% if no answers
         });
     </script>
 </body>
