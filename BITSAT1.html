@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BITSAT Mock Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px 40px;
+        }
+        h1 {
+            color: #1a237e;
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+        }
+        .question-container {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #eeeeee;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        .question-text {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .options-list li {
+            margin-bottom: 10px;
+        }
+        .options-list label {
+            display: block;
+            padding: 10px 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .options-list label:hover {
+            background-color: #e3f2fd;
+            border-color: #90caf9;
+        }
+        .options-list input[type="radio"] {
+            margin-right: 10px;
+            display: none; /* Hide the default radio button */
+        }
+        .options-list input[type="radio"]:checked + span {
+            font-weight: bold;
+        }
+
+        /* Styling for feedback */
+        .options-list label.correct {
+            background-color: #e8f5e9;
+            border-color: #81c784;
+            color: #2e7d32;
+        }
+        .options-list label.incorrect {
+            background-color: #ffebee;
+            border-color: #e57373;
+            color: #c62828;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        button {
+            background-color: #3f51b5;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #303f9f;
+        }
+        button:disabled {
+            background-color: #9e9e9e;
+            cursor: not-allowed;
+        }
+        #results {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none; /* Hidden by default */
+        }
+        #results.success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        #results.fail {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        #try-again-btn {
+            display: none; /* Hidden by default */
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BITSAT Mini Mock Test</h1>
+        <p>Select the correct answer for each question and click "Submit" at the bottom to see your score.</p>
+        
+        <form id="quiz-form">
+            </form>
+
+        <div class="button-container">
+            <button type="submit" id="submit-btn">Submit Answers</button>
+            <button type="button" id="try-again-btn">Try Again</button>
+        </div>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quizData = [
+                {
+                    section: "Physics",
+                    question: "A solid sphere, a disc, and a solid cylinder of the same mass and radius are allowed to roll down (from rest) on an inclined plane. Which object will reach the bottom first?",
+                    options: ["Solid sphere", "Disc", "Solid cylinder", "All will reach at the same time"],
+                    correct: "Solid sphere"
+                },
+                {
+                    section: "Chemistry",
+                    question: "What is the hybridization of the central atom in SF₄?",
+                    options: ["sp³d", "sp³", "sp²", "sp³d²"],
+                    correct: "sp³d"
+                },
+                {
+                    section: "Mathematics",
+                    question: "If the roots of the equation x² - 8x + a² - 6a = 0 are real, then:",
+                    options: ["a ≤ -2 or a ≥ 8", "-2 < a < 8", "a > 8", "a < -2"],
+                    correct: "a ≤ -2 or a ≥ 8"
+                },
+                 {
+                    section: "English Proficiency",
+                    question: "Choose the word that is most nearly opposite in meaning to the word 'Venerate'.",
+                    options: ["Despise", "Respect", "Condemn", "Ignore"],
+                    correct: "Despise"
+                },
+                {
+                    section: "Logical Reasoning",
+                    question: "In a certain code, 'REASON' is written as 'SDBRPM'. How is 'THINK' written in that code?",
+                    options: ["SGHMJ", "UIJOL", "UHHMJ", "SGIMK"],
+                    correct: "SGHMJ"
+                },
+                {
+                    section: "Physics",
+                    question: "In a series LCR circuit, the voltage across the inductor and capacitor are 40 V and 20 V respectively and the voltage across the resistor is 15 V. What is the total voltage of the source?",
+                    options: ["75 V", "35 V", "25 V", "45 V"],
+                    correct: "25 V"
+                },
+                 {
+                    section: "Chemistry",
+                    question: "Which of the following is responsible for the cleansing action of soap?",
+                    options: ["Saponification", "Hydrolysis", "Esterification", "Emulsification"],
+                    correct: "Emulsification"
+                },
+                {
+                    section: "Mathematics",
+                    question: "The value of ∫[0 to π/2] (√sin(x) / (√sin(x) + √cos(x))) dx is:",
+                    options: ["π/2", "π/4", "0", "1"],
+                    correct: "π/4"
+                }
+            ];
+
+            const quizForm = document.getElementById('quiz-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const resultsContainer = document.getElementById('results');
+            const tryAgainBtn = document.getElementById('try-again-btn');
+
+            function buildQuiz() {
+                quizData.forEach((item, index) => {
+                    const questionNumber = index + 1;
+                    const questionContainer = document.createElement('div');
+                    questionContainer.className = 'question-container';
+
+                    questionContainer.innerHTML = `
+                        <p class="question-text">${questionNumber}. [${item.section}] ${item.question}</p>
+                        <ul class="options-list" id="q${questionNumber}-options">
+                            ${item.options.map(option => `
+                                <li>
+                                    <label>
+                                        <input type="radio" name="q${questionNumber}" value="${option}">
+                                        <span>${option}</span>
+                                    </label>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    `;
+                    quizForm.appendChild(questionContainer);
+                });
+            }
+
+            function showResults() {
+                let score = 0;
+                
+                quizData.forEach((item, index) => {
+                    const questionNumber = index + 1;
+                    const optionsList = document.getElementById(`q${questionNumber}-options`);
+                    const selectedOption = quizForm.querySelector(`input[name="q${questionNumber}"]:checked`);
+                    
+                    const allLabels = optionsList.querySelectorAll('label');
+                    allLabels.forEach(label => {
+                        const input = label.querySelector('input');
+                        if (input.value === item.correct) {
+                           label.classList.add('correct'); // Highlight the correct answer
+                        }
+                    });
+
+                    if (selectedOption) {
+                        if (selectedOption.value === item.correct) {
+                            score++;
+                        } else {
+                            // Highlight the user's wrong choice
+                            selectedOption.parentElement.classList.add('incorrect');
+                        }
+                    }
+                });
+
+                resultsContainer.style.display = 'block';
+                resultsContainer.textContent = `You scored ${score} out of ${quizData.length}`;
+
+                if (score >= quizData.length / 2) {
+                    resultsContainer.className = 'success';
+                } else {
+                    resultsContainer.className = 'fail';
+                }
+
+                submitBtn.disabled = true;
+                tryAgainBtn.style.display = 'inline-block';
+            }
+
+            quizForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                showResults();
+            });
+
+            tryAgainBtn.addEventListener('click', function() {
+                location.reload();
+            });
+
+            buildQuiz();
+        });
+    </script>
+</body>
+</html>
