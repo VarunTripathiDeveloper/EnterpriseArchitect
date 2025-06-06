@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landmark Explorer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #f0f4f8;
+            --card-bg: #ffffff;
+            --primary-text: #333;
+            --accent-color: #3498db;
+            --accent-dark: #2980b9;
+            --correct-color: #2ecc71;
+            --incorrect-color: #e74c3c;
+            --hint-bg: #eaf5ff;
+            --font-family: 'Nunito', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .game-header {
+            margin-bottom: 20px;
+        }
+
+        .game-header h1 {
+            font-size: 2.5em;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        .game-header p {
+            font-size: 1.1em;
+            color: #777;
+        }
+        
+        #score-display {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.2em;
+            font-weight: 700;
+            background: var(--accent-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 10px;
+        }
+
+        #landmark-image-container {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: #eee;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        #landmark-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        #landmark-image:hover {
+            transform: scale(1.05);
+        }
+
+        #hints-area {
+            min-height: 50px;
+            margin-bottom: 20px;
+        }
+
+        .hint {
+            background-color: var(--hint-bg);
+            color: var(--primary-text);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        #fun-fact-area {
+            min-height: 50px;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #e8f5e9; /* Light green */
+            color: #2e7d32;
+            font-weight: 600;
+            display: none; /* Hidden by default */
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        #guess-input {
+            flex-grow: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: var(--font-family);
+            transition: border-color 0.3s;
+        }
+
+        #guess-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .button-area {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 700;
+            font-family: var(--font-family);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #guess-btn {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        #guess-btn:hover {
+            background-color: var(--accent-dark);
+            transform: translateY(-2px);
+        }
+
+        #hint-btn {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        #hint-btn:hover {
+            background-color: #e67e22;
+            transform: translateY(-2px);
+        }
+        
+        #next-btn {
+            background-color: var(--correct-color);
+            color: white;
+            display: none; /* Hidden by default */
+        }
+        
+        #next-btn:hover {
+            background-color: #27ae60;
+            transform: translateY(-2px);
+        }
+
+        #message-area {
+            height: 25px;
+            margin-top: 15px;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .message-correct {
+            color: var(--correct-color);
+        }
+        
+        .message-incorrect {
+            color: var(--incorrect-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="score-display">Score: 0</div>
+    <div class="game-container" id="game-container">
+        <div class="game-header">
+            <h1>Landmark Explorer</h1>
+            <p>Can you guess the famous landmark?</p>
+        </div>
+
+        <div id="landmark-image-container">
+            <img id="landmark-image" src="" alt="Famous Landmark">
+        </div>
+
+        <div id="hints-area"></div>
+
+        <div class="input-area">
+            <input type="text" id="guess-input" placeholder="Enter your guess...">
+        </div>
+
+        <div class="button-area">
+            <button class="btn" id="guess-btn">Guess</button>
+            <button class="btn" id="hint-btn">Get a Hint</button>
+            <button class="btn" id="next-btn">Next Landmark</button>
+        </div>
+        
+        <div id="message-area"></div>
+        <div id="fun-fact-area"></div>
+    </div>
+
+    <script>
+        const landmarks = [
+            {
+                name: "Eiffel Tower",
+                image: "https://images.unsplash.com/photo-1543349689-9a4d426bee8e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600",
+                hints: [
+                    "I am a wrought-iron lattice tower located in France.",
+                    "I was the main attraction of the 1889 World's Fair.",
+                    "You can find me in the 'City of Love', Paris."
+                ],
+                funFact: "The Eiffel Tower can be 15 cm taller during the summer, due to the thermal expansion of the iron."
+            },
+            {
+                name: "Statue of Liberty",
+                image: "https://images.unsplash.com/photo-1503572327579-b5c6afe0c5c5?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600",
+                hints: [
+                    "I am a colossal sculpture on an island in New York Harbor.",
+                    "I was a gift to the United States from the people of France.",
+                    "I hold a torch and a tablet inscribed with the date of the U.S. Declaration of Independence."
+                ],
+                funFact: "The Statue of Liberty's copper skin is only 3/32 of an inch thick (less than the thickness of two pennies)."
+            },
+            {
+                name: "Colosseum",
+                image: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600",
+                hints: [
+                    "I am an ancient oval amphitheater in the center of Rome, Italy.",
+                    "Gladiatorial contests and public spectacles were held here.",
+                    "Despite being partially ruined by earthquakes and stone-robbers, I am still a major tourist attraction."
+                ],
+                funFact: "The Colosseum had a retractable roof called the 'velarium', which was a massive awning that protected spectators from the sun."
+            },
+            {
+                name: "Great Wall of China",
+                image: "https://images.unsplash.com/photo-1508804185872-d7bad501b34e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600",
+                hints: [
+                    "I am a series of fortifications built across the historical northern borders of China.",
+                    "I was built to protect Chinese states and empires against raids and invasions.",
+                    "I am not a single continuous wall, but a system of walls, watchtowers, and fortresses."
+                ],
+                funFact: "Contrary to popular belief, the Great Wall of China is not visible from the moon with the naked eye."
+            },
+            {
+                name: "Machu Picchu",
+                image: "https://images.unsplash.com/photo-1526392060635-9d6019884377?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600",
+                hints: [
+                    "I am a 15th-century Inca citadel located in the Eastern Cordillera of southern Peru.",
+                    "I am situated on a mountain ridge 2,430 meters above sea level.",
+                    "Often referred to as the 'Lost City of the Incas'."
+                ],
+                funFact: "The stones used to build Machu Picchu were cut so precisely that they fit together without mortar, and not even a knife blade can fit between them."
+            },
+             {
+                name: "Pyramids of Giza",
+                image: "https://images.unsplash.com/photo-1572439113182-3c189c64b66d?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600",
+                hints: [
+                    "We are ancient structures located on the outskirts of Cairo, Egypt.",
+                    "We were built as tombs for Pharaohs.",
+                    "The Great Sphinx, a mythical creature with the head of a human and the body of a lion, guards us."
+                ],
+                funFact: "The Great Pyramid of Giza was the tallest man-made structure in the world for over 3,800 years."
+            },
+            {
+                name: "Taj Mahal",
+                image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600",
+                hints: [
+                    "I am an ivory-white marble mausoleum on the south bank of the Yamuna river in India.",
+                    "I was commissioned by the Mughal emperor Shah Jahan to house the tomb of his favorite wife.",
+                    "I am considered a jewel of Muslim art in India."
+                ],
+                funFact: "The Taj Mahal appears to change color depending on the time of day and whether there's a moon at night."
+            }
+        ];
+
+        // --- DOM Elements ---
+        const landmarkImage = document.getElementById('landmark-image');
+        const hintsArea = document.getElementById('hints-area');
+        const guessInput = document.getElementById('guess-input');
+        const guessBtn = document.getElementById('guess-btn');
+        const hintBtn = document.getElementById('hint-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const messageArea = document.getElementById('message-area');
+        const funFactArea = document.getElementById('fun-fact-area');
+        const scoreDisplay = document.getElementById('score-display');
+        
+        // --- Game State ---
+        let currentLandmarkIndex = 0;
+        let hintsShown = 0;
+        let score = 0;
+
+        function loadLandmark(index) {
+            // Clear previous state
+            hintsArea.innerHTML = '';
+            messageArea.innerHTML = '';
+            guessInput.value = '';
+            funFactArea.style.display = 'none';
+            guessInput.disabled = false;
+
+            // Load new landmark data
+            const landmark = landmarks[index];
+            landmarkImage.src = landmark.image;
+            
+            // Reset buttons
+            guessBtn.style.display = 'inline-block';
+            hintBtn.style.display = 'inline-block';
+            nextBtn.style.display = 'none';
+            
+            // Reset hints
+            hintsShown = 0;
+        }
+        
+        function showHint() {
+            const landmark = landmarks[currentLandmarkIndex];
+            if (hintsShown < landmark.hints.length) {
+                const hintElement = document.createElement('div');
+                hintElement.classList.add('hint');
+                hintElement.textContent = landmark.hints[hintsShown];
+                hintsArea.appendChild(hintElement);
+                hintsShown++;
+            } else {
+                messageArea.textContent = "No more hints available!";
+                messageArea.className = 'message-incorrect';
+            }
+        }
+        
+        function checkGuess() {
+            const userGuess = guessInput.value.trim().toLowerCase();
+            const correctAnwer = landmarks[currentLandmarkIndex].name.toLowerCase();
+            
+            if (userGuess === correctAnwer) {
+                // --- Correct Guess ---
+                messageArea.textContent = "Correct! Well done!";
+                messageArea.className = 'message-correct';
+                funFactArea.textContent = `Fun Fact: ${landmarks[currentLandmarkIndex].funFact}`;
+                funFactArea.style.display = 'block';
+                
+                // Update score
+                score++;
+                scoreDisplay.textContent = `Score: ${score}`;
+                
+                // Update buttons
+                guessBtn.style.display = 'none';
+                hintBtn.style.display = 'none';
+                nextBtn.style.display = 'inline-block';
+                guessInput.disabled = true;
+
+            } else {
+                // --- Incorrect Guess ---
+                messageArea.textContent = "Not quite! Try another guess or get a hint.";
+                messageArea.className = 'message-incorrect';
+                guessInput.style.animation = 'shake 0.5s';
+                setTimeout(() => guessInput.style.animation = '', 500);
+            }
+        }
+        
+        function loadNextLandmark() {
+            currentLandmarkIndex++;
+            if (currentLandmarkIndex < landmarks.length) {
+                loadLandmark(currentLandmarkIndex);
+            } else {
+                // Game Over
+                document.getElementById('game-container').innerHTML = `
+                    <h1>Game Over!</h1>
+                    <p style="font-size: 1.5em; margin-top: 20px;">Your final score is: ${score} out of ${landmarks.length}</p>
+                    <button class="btn" style="margin-top: 20px; background: var(--accent-color)" onclick="location.reload()">Play Again</button>
+                `;
+            }
+        }
+
+        // --- Event Listeners ---
+        hintBtn.addEventListener('click', showHint);
+        guessBtn.addEventListener('click', checkGuess);
+        nextBtn.addEventListener('click', loadNextLandmark);
+        
+        // Allow pressing Enter to guess
+        guessInput.addEventListener('keyup', function(event) {
+            if (event.key === "Enter") {
+                guessBtn.click();
+            }
+        });
+
+        // --- Initial Load ---
+        loadLandmark(currentLandmarkIndex);
+    </script>
+</body>
+</html>
