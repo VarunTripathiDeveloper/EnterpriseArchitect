@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Cost Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Simple transition for a smoother UI */
+        .transition-all {
+            transition: all 0.3s ease-in-out;
+        }
+        /* Custom focus ring color */
+        .focus-ring-blue {
+            --tw-ring-opacity: 1;
+            --tw-ring-color: rgba(59, 130, 246, var(--tw-ring-opacity));
+        }
+        /* Style for the loading overlay */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1rem;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Building Cost Calculator</h1>
+            <p class="text-gray-600 mt-2">Estimate project costs based on materials, labor, and other expenses.</p>
+        </header>
+
+        <main class="space-y-6">
+            <!-- Materials Section -->
+            <section id="materials-section" class="bg-white p-6 rounded-lg shadow-md relative">
+                 <!-- Loading Overlay -->
+                <div id="materials-loading-overlay" class="loading-overlay">
+                    <svg class="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <p class="text-gray-700 font-semibold">Fetching latest material prices...</p>
+                </div>
+                
+                <h2 class="text-2xl font-semibold text-gray-700 border-b pb-3 mb-4">1. Materials</h2>
+                <div id="materials-list" class="space-y-4">
+                    <!-- Material Row Template (will be cloned by JS) -->
+                    <div class="material-row grid grid-cols-1 md:grid-cols-12 gap-4 items-center border p-4 rounded-md bg-gray-50">
+                        <div class="md:col-span-3">
+                            <label class="block text-sm font-medium text-gray-700">Material</label>
+                            <select class="material-type mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                <optgroup label="Aggregates & Cement">
+                                    <option>Cement (25kg bag)</option>
+                                    <option>Sand (25kg bag)</option>
+                                    <option>Gravel (20mm, tonne bag)</option>
+                                    <option>Ballast (tonne bag)</option>
+                                    <option>Post-Fix Concrete (20kg bag)</option>
+                                    <option>Mortar Mix (20kg bag)</option>
+                                    <option>Lime (25kg bag)</option>
+                                </optgroup>
+                                <optgroup label="Bricks & Blocks">
+                                    <option>Common Bricks (per 100)</option>
+                                    <option>Facing Bricks (per 100)</option>
+                                    <option>Engineering Bricks (per 100)</option>
+                                    <option>Concrete Blocks (7N, each)</option>
+                                    <option>Aerated Blocks (each)</option>
+                                    <option>Paving Slabs (600x600, each)</option>
+                                </optgroup>
+                                <optgroup label="Timber & Sheet Materials">
+                                    <option>C16 Timber (47x100mm, per meter)</option>
+                                    <option>C24 Timber (47x150mm, per meter)</option>
+                                    <option>Treated Timber (47x100mm, per meter)</option>
+                                    <option>CLS Studwork Timber (38x89mm, per meter)</option>
+                                    <option>Plywood (12mm, 2440x1220 sheet)</option>
+                                    <option>OSB3 (18mm, 2440x1220 sheet)</option>
+                                    <option>MDF (18mm, 2440x1220 sheet)</option>
+                                    <option>Skirting Board (Torus, per meter)</option>
+                                    <option>Architrave (Torus, per meter)</option>
+                                    <option>Decking Board (per meter)</option>
+                                </optgroup>
+                                 <optgroup label="Plastering & Drylining">
+                                    <option>Plasterboard (12.5mm, 2400x1200 sheet)</option>
+                                    <option>Moisture Resistant Plasterboard (sheet)</option>
+                                    <option>Fireline Plasterboard (sheet)</option>
+                                    <option>Multi-Finish Plaster (25kg bag)</option>
+                                    <option>Bonding Plaster (25kg bag)</option>
+                                    <option>Thistle Dri-Coat (25kg bag)</option>
+                                    <option>Metal Stud (3.0m)</option>
+                                    <option>Metal Track (3.0m)</option>
+                                    <option>Corner Bead (3.0m)</option>
+                                    <option>Drywall Screws (box of 1000)</option>
+                                </optgroup>
+                                <optgroup label="Insulation">
+                                    <option>Loft Roll Insulation (100mm)</option>
+                                    <option>Acoustic Insulation Roll</option>
+                                    <option>PIR Insulation Board (50mm, 2400x1200 sheet)</option>
+                                    <option>PIR Insulation Board (100mm, 2400x1200 sheet)</option>
+                                    <option>Polystyrene Sheet (50mm, 2400x1200)</option>
+                                </optgroup>
+                                <optgroup label="Roofing">
+                                    <option>Roofing Felt (10m roll)</option>
+                                    <option>Roofing Batten (25x50mm, per meter)</option>
+                                    <option>Concrete Roof Tiles (each)</option>
+                                    <option>Slate Roof Tiles (each)</option>
+                                    <option>Lead Flashing (3m roll)</option>
+                                    <option>Breathable Membrane (50m roll)</option>
+                                </optgroup>
+                                <optgroup label="Plumbing & Heating">
+                                    <option>Copper Pipe (15mm, per meter)</option>
+                                    <option>Copper Pipe (22mm, per meter)</option>
+                                    <option>Plastic Barrier Pipe (15mm, per meter)</option>
+                                    <option>Push-fit Elbow (15mm)</option>
+                                    <option>Push-fit Tee (15mm)</option>
+                                    <option>Compression Olive (15mm)</option>
+                                    <option>Solvent Weld Pipe (40mm, per meter)</option>
+                                    <option>Radiator (600x1000, double panel)</option>
+                                    <option>TRV Valve (each)</option>
+                                </optgroup>
+                                <optgroup label="Electrical">
+                                    <option>Twin & Earth Cable (2.5mm, per meter)</option>
+                                    <option>Single Socket (each)</option>
+                                    <option>Double Socket (each)</option>
+                                    <option>Light Switch (1-gang, each)</option>
+                                    <option>Ceiling Rose (each)</option>
+                                    <option>Consumer Unit (10-way, each)</option>
+                                    <option>MCB (6A, each)</option>
+                                    <option>Downlight (LED, each)</option>
+                                </optgroup>
+                                <optgroup label="Painting & Decorating">
+                                    <option>Matt Emulsion Paint (5L)</option>
+                                    <option>Gloss Paint (750ml)</option>
+                                    <option>Primer (1L)</option>
+                                    <option>Caulk (tube)</option>
+                                    <option>Silicone Sealant (tube)</option>
+                                    <option>Masking Tape (roll)</option>
+                                    <option>Sandpaper (pack)</option>
+                                </optgroup>
+                                <optgroup label="Fixings & Adhesives">
+                                    <option>Wood Screws (4x50mm, box of 200)</option>
+                                    <option>Nails (50mm, 1kg box)</option>
+                                    <option>Wall Plugs (box of 100)</option>
+                                    <option>PVA Bond (5L)</option>
+                                    <option>Wood Glue (500ml)</option>
+                                    <option>Grab Adhesive (tube)</option>
+                                    <option>Tile Adhesive (20kg bag)</option>
+                                    <option>Grout (5kg bag)</option>
+                                </optgroup>
+                                <optgroup label="Landscaping & Fencing">
+                                    <option>Fence Panel (6x6ft, each)</option>
+                                    <option>Fence Post (concrete, 8ft)</option>
+                                    <option>Gravel Board (concrete, 6ft)</option>
+                                    <option>Turf (per sq meter)</option>
+                                    <option>Topsoil (tonne bag)</option>
+                                    <option>Weed Control Fabric (10m roll)</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700">Quantity</label>
+                            <input type="number" value="1" min="0" class="quantity-input mt-1 block w-full pl-3 pr-3 py-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        </div>
+                        <div class="md:col-span-3">
+                            <label class="block text-sm font-medium text-gray-700">Supplier</label>
+                            <select class="supplier-select mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                <option>B&Q</option>
+                                <option>Selco</option>
+                                <option>Wickes</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700">Unit Price</label>
+                            <span class="unit-price-display mt-2 block w-full py-1 text-gray-800 font-semibold sm:text-sm">£0.00</span>
+                        </div>
+                        <div class="md:col-span-2 flex items-end h-full">
+                            <button class="remove-material-btn bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md w-full transition-all">Remove</button>
+                        </div>
+                    </div>
+                </div>
+                <button id="add-material-btn" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition-all" disabled>+ Add Material</button>
+            </section>
+
+            <!-- Labor Section -->
+            <section id="labor-section" class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold text-gray-700 border-b pb-3 mb-4">2. Labor</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label for="num-workers" class="block text-sm font-medium text-gray-700">Number of People</label>
+                        <input type="number" id="num-workers" value="1" min="0" class="mt-1 block w-full pl-3 pr-3 py-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                    </div>
+                    <div>
+                        <label for="num-days" class="block text-sm font-medium text-gray-700">Number of Days</label>
+                        <input type="number" id="num-days" value="1" min="0" class="mt-1 block w-full pl-3 pr-3 py-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                    </div>
+                    <div>
+                        <label for="day-rate" class="block text-sm font-medium text-gray-700">Day Rate per Person (£)</label>
+                        <input type="number" id="day-rate" value="150" min="0" class="mt-1 block w-full pl-3 pr-3 py-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Additional Costs Section -->
+            <section id="additional-costs-section" class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold text-gray-700 border-b pb-3 mb-4">3. Additional Costs</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-center space-x-3 bg-gray-50 p-4 rounded-md">
+                        <input id="add-vat" type="checkbox" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="add-vat" class="font-medium text-gray-700">Add VAT (20%)</label>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-md">
+                        <label for="contingency" class="block text-sm font-medium text-gray-700">Contingency (%)</label>
+                        <input type="number" id="contingency" value="10" min="0" max="100" class="mt-1 block w-full pl-3 pr-3 py-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Calculate Button -->
+            <div class="text-center">
+                <button id="calculate-btn" class="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-12 rounded-lg text-xl shadow-lg transition-all transform hover:scale-105">
+                    Calculate Total Cost
+                </button>
+            </div>
+
+            <!-- Results Section -->
+            <section id="results-section" class="bg-white p-6 rounded-lg shadow-md hidden">
+                <h2 class="text-2xl font-semibold text-gray-700 border-b pb-3 mb-4">Cost Breakdown</h2>
+                <div class="space-y-3 text-lg">
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Materials Subtotal:</span>
+                        <span id="materials-total" class="font-semibold text-gray-800">£0.00</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Labor Subtotal:</span>
+                        <span id="labor-total" class="font-semibold text-gray-800">£0.00</span>
+                    </div>
+                     <div class="flex justify-between border-t pt-2 mt-2">
+                        <span class="text-gray-600 font-medium">Subtotal:</span>
+                        <span id="sub-total" class="font-bold text-gray-900">£0.00</span>
+                    </div>
+                    <div id="vat-row" class="flex justify-between hidden">
+                        <span class="text-gray-600">VAT (20%):</span>
+                        <span id="vat-amount" class="font-semibold text-gray-800">£0.00</span>
+                    </div>
+                    <div id="contingency-row" class="flex justify-between">
+                        <span class="text-gray-600">Contingency:</span>
+                        <span id="contingency-amount" class="font-semibold text-gray-800">£0.00</span>
+                    </div>
+                    <div class="flex justify-between text-2xl font-bold text-green-700 bg-green-50 p-4 rounded-md mt-4">
+                        <span>Total Estimated Cost:</span>
+                        <span id="grand-total">£0.00</span>
+                    </div>
+                </div>
+                 <div id="error-message" class="text-red-600 font-semibold mt-4 text-center hidden"></div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // This variable will hold the prices once they are "fetched".
+            let materialCosts = {};
+
+            // --- ELEMENTS ---
+            const materialsList = document.getElementById('materials-list');
+            const addMaterialBtn = document.getElementById('add-material-btn');
+            const calculateBtn = document.getElementById('calculate-btn');
+            const resultsSection = document.getElementById('results-section');
+            const errorMessage = document.getElementById('error-message');
+            const loadingOverlay = document.getElementById('materials-loading-overlay');
+
+            /**
+             * SIMULATED API CALL
+             * In a real-world application, this function would make a `fetch` call to a server API.
+             * Here, we use a Promise and setTimeout to simulate a network request delay.
+             * This structure allows for easy replacement with a real API call in the future.
+             * @returns {Promise<Object>} A promise that resolves with the material costs object.
+             */
+            const fetchPricesFromAPI = () => {
+                console.log('Fetching prices from remote source...');
+                return new Promise((resolve) => {
+                    const prices = {
+                        // Aggregates & Cement
+                        'Cement (25kg bag)': { 'B&Q': 6.80, 'Selco': 6.10, 'Wickes': 6.50 },
+                        'Sand (25kg bag)': { 'B&Q': 4.50, 'Selco': 3.90, 'Wickes': 4.20 },
+                        'Gravel (20mm, tonne bag)': { 'B&Q': 85.00, 'Selco': 78.00, 'Wickes': 82.00 },
+                        'Ballast (tonne bag)': { 'B&Q': 75.00, 'Selco': 70.00, 'Wickes': 72.00 },
+                        'Post-Fix Concrete (20kg bag)': { 'B&Q': 7.50, 'Selco': 6.80, 'Wickes': 7.20 },
+                        'Mortar Mix (20kg bag)': { 'B&Q': 5.50, 'Selco': 5.00, 'Wickes': 5.25 },
+                        'Lime (25kg bag)': { 'B&Q': 15.00, 'Selco': 13.50, 'Wickes': 14.00 },
+                        // Bricks & Blocks
+                        'Common Bricks (per 100)': { 'B&Q': 65.00, 'Selco': 58.00, 'Wickes': 62.00 },
+                        'Facing Bricks (per 100)': { 'B&Q': 90.00, 'Selco': 82.00, 'Wickes': 85.00 },
+                        'Engineering Bricks (per 100)': { 'B&Q': 110.00, 'Selco': 100.00, 'Wickes': 105.00 },
+                        'Concrete Blocks (7N, each)': { 'B&Q': 2.50, 'Selco': 2.20, 'Wickes': 2.30 },
+                        'Aerated Blocks (each)': { 'B&Q': 3.00, 'Selco': 2.70, 'Wickes': 2.80 },
+                        'Paving Slabs (600x600, each)': { 'B&Q': 8.00, 'Selco': 7.00, 'Wickes': 7.50 },
+                        // Timber & Sheet Materials
+                        'C16 Timber (47x100mm, per meter)': { 'B&Q': 5.50, 'Selco': 4.95, 'Wickes': 5.20 },
+                        'C24 Timber (47x150mm, per meter)': { 'B&Q': 8.50, 'Selco': 7.80, 'Wickes': 8.10 },
+                        'Treated Timber (47x100mm, per meter)': { 'B&Q': 6.00, 'Selco': 5.40, 'Wickes': 5.70 },
+                        'CLS Studwork Timber (38x89mm, per meter)': { 'B&Q': 4.00, 'Selco': 3.60, 'Wickes': 3.80 },
+                        'Plywood (12mm, 2440x1220 sheet)': { 'B&Q': 45.00, 'Selco': 40.00, 'Wickes': 42.00 },
+                        'OSB3 (18mm, 2440x1220 sheet)': { 'B&Q': 38.00, 'Selco': 34.00, 'Wickes': 36.00 },
+                        'MDF (18mm, 2440x1220 sheet)': { 'B&Q': 35.00, 'Selco': 31.00, 'Wickes': 33.00 },
+                        'Skirting Board (Torus, per meter)': { 'B&Q': 3.50, 'Selco': 3.00, 'Wickes': 3.20 },
+                        'Architrave (Torus, per meter)': { 'B&Q': 2.80, 'Selco': 2.50, 'Wickes': 2.60 },
+                        'Decking Board (per meter)': { 'B&Q': 4.50, 'Selco': 4.00, 'Wickes': 4.20 },
+                        // Plastering & Drylining
+                        'Plasterboard (12.5mm, 2400x1200 sheet)': { 'B&Q': 12.00, 'Selco': 10.50, 'Wickes': 11.50 },
+                        'Moisture Resistant Plasterboard (sheet)': { 'B&Q': 18.00, 'Selco': 16.00, 'Wickes': 17.00 },
+                        'Fireline Plasterboard (sheet)': { 'B&Q': 20.00, 'Selco': 18.50, 'Wickes': 19.00 },
+                        'Multi-Finish Plaster (25kg bag)': { 'B&Q': 11.00, 'Selco': 9.80, 'Wickes': 10.50 },
+                        'Bonding Plaster (25kg bag)': { 'B&Q': 10.00, 'Selco': 9.00, 'Wickes': 9.50 },
+                        'Thistle Dri-Coat (25kg bag)': { 'B&Q': 14.00, 'Selco': 12.50, 'Wickes': 13.00 },
+                        'Metal Stud (3.0m)': { 'B&Q': 8.00, 'Selco': 7.00, 'Wickes': 7.50 },
+                        'Metal Track (3.0m)': { 'B&Q': 7.00, 'Selco': 6.00, 'Wickes': 6.50 },
+                        'Corner Bead (3.0m)': { 'B&Q': 3.00, 'Selco': 2.50, 'Wickes': 2.70 },
+                        'Drywall Screws (box of 1000)': { 'B&Q': 15.00, 'Selco': 13.00, 'Wickes': 14.00 },
+                        // Insulation
+                        'Loft Roll Insulation (100mm)': { 'B&Q': 35.00, 'Selco': 32.50, 'Wickes': 34.00 },
+                        'Acoustic Insulation Roll': { 'B&Q': 40.00, 'Selco': 37.00, 'Wickes': 38.00 },
+                        'PIR Insulation Board (50mm, 2400x1200 sheet)': { 'B&Q': 30.00, 'Selco': 27.00, 'Wickes': 28.00 },
+                        'PIR Insulation Board (100mm, 2400x1200 sheet)': { 'B&Q': 55.00, 'Selco': 50.00, 'Wickes': 52.00 },
+                        'Polystyrene Sheet (50mm, 2400x1200)': { 'B&Q': 22.00, 'Selco': 20.00, 'Wickes': 21.00 },
+                        // Roofing
+                        'Roofing Felt (10m roll)': { 'B&Q': 45.00, 'Selco': 40.00, 'Wickes': 42.00 },
+                        'Roofing Batten (25x50mm, per meter)': { 'B&Q': 1.80, 'Selco': 1.60, 'Wickes': 1.70 },
+                        'Concrete Roof Tiles (each)': { 'B&Q': 1.20, 'Selco': 1.00, 'Wickes': 1.10 },
+                        'Slate Roof Tiles (each)': { 'B&Q': 2.50, 'Selco': 2.20, 'Wickes': 2.30 },
+                        'Lead Flashing (3m roll)': { 'B&Q': 60.00, 'Selco': 55.00, 'Wickes': 58.00 },
+                        'Breathable Membrane (50m roll)': { 'B&Q': 70.00, 'Selco': 65.00, 'Wickes': 68.00 },
+                        // Plumbing & Heating
+                        'Copper Pipe (15mm, per meter)': { 'B&Q': 8.00, 'Selco': 7.20, 'Wickes': 7.50 },
+                        'Copper Pipe (22mm, per meter)': { 'B&Q': 12.00, 'Selco': 10.80, 'Wickes': 11.20 },
+                        'Plastic Barrier Pipe (15mm, per meter)': { 'B&Q': 1.50, 'Selco': 1.30, 'Wickes': 1.40 },
+                        'Push-fit Elbow (15mm)': { 'B&Q': 2.50, 'Selco': 2.20, 'Wickes': 2.30 },
+                        'Push-fit Tee (15mm)': { 'B&Q': 3.00, 'Selco': 2.70, 'Wickes': 2.80 },
+                        'Compression Olive (15mm)': { 'B&Q': 0.50, 'Selco': 0.40, 'Wickes': 0.45 },
+                        'Solvent Weld Pipe (40mm, per meter)': { 'B&Q': 4.00, 'Selco': 3.50, 'Wickes': 3.70 },
+                        'Radiator (600x1000, double panel)': { 'B&Q': 90.00, 'Selco': 80.00, 'Wickes': 85.00 },
+                        'TRV Valve (each)': { 'B&Q': 15.00, 'Selco': 13.00, 'Wickes': 14.00 },
+                        // Electrical
+                        'Twin & Earth Cable (2.5mm, per meter)': { 'B&Q': 2.50, 'Selco': 2.10, 'Wickes': 2.30 },
+                        'Single Socket (each)': { 'B&Q': 4.00, 'Selco': 3.50, 'Wickes': 3.70 },
+                        'Double Socket (each)': { 'B&Q': 5.00, 'Selco': 4.50, 'Wickes': 4.70 },
+                        'Light Switch (1-gang, each)': { 'B&Q': 3.50, 'Selco': 3.00, 'Wickes': 3.20 },
+                        'Ceiling Rose (each)': { 'B&Q': 2.50, 'Selco': 2.20, 'Wickes': 2.30 },
+                        'Consumer Unit (10-way, each)': { 'B&Q': 80.00, 'Selco': 70.00, 'Wickes': 75.00 },
+                        'MCB (6A, each)': { 'B&Q': 6.00, 'Selco': 5.50, 'Wickes': 5.80 },
+                        'Downlight (LED, each)': { 'B&Q': 12.00, 'Selco': 10.00, 'Wickes': 11.00 },
+                        // Painting & Decorating
+                        'Matt Emulsion Paint (5L)': { 'B&Q': 28.00, 'Selco': 24.00, 'Wickes': 26.50 },
+                        'Gloss Paint (750ml)': { 'B&Q': 18.00, 'Selco': 16.00, 'Wickes': 17.00 },
+                        'Primer (1L)': { 'B&Q': 15.00, 'Selco': 13.00, 'Wickes': 14.00 },
+                        'Caulk (tube)': { 'B&Q': 3.00, 'Selco': 2.50, 'Wickes': 2.70 },
+                        'Silicone Sealant (tube)': { 'B&Q': 6.00, 'Selco': 5.00, 'Wickes': 5.50 },
+                        'Masking Tape (roll)': { 'B&Q': 2.50, 'Selco': 2.00, 'Wickes': 2.20 },
+                        'Sandpaper (pack)': { 'B&Q': 4.00, 'Selco': 3.50, 'Wickes': 3.70 },
+                        // Fixings & Adhesives
+                        'Wood Screws (4x50mm, box of 200)': { 'B&Q': 7.00, 'Selco': 6.00, 'Wickes': 6.50 },
+                        'Nails (50mm, 1kg box)': { 'B&Q': 5.00, 'Selco': 4.50, 'Wickes': 4.80 },
+                        'Wall Plugs (box of 100)': { 'B&Q': 3.00, 'Selco': 2.50, 'Wickes': 2.70 },
+                        'PVA Bond (5L)': { 'B&Q': 12.00, 'Selco': 10.00, 'Wickes': 11.00 },
+                        'Wood Glue (500ml)': { 'B&Q': 6.00, 'Selco': 5.00, 'Wickes': 5.50 },
+                        'Grab Adhesive (tube)': { 'B&Q': 5.00, 'Selco': 4.00, 'Wickes': 4.50 },
+                        'Tile Adhesive (20kg bag)': { 'B&Q': 20.00, 'Selco': 18.00, 'Wickes': 19.00 },
+                        'Grout (5kg bag)': { 'B&Q': 15.00, 'Selco': 13.00, 'Wickes': 14.00 },
+                        // Landscaping & Fencing
+                        'Fence Panel (6x6ft, each)': { 'B&Q': 35.00, 'Selco': 30.00, 'Wickes': 32.00 },
+                        'Fence Post (concrete, 8ft)': { 'B&Q': 18.00, 'Selco': 16.00, 'Wickes': 17.00 },
+                        'Gravel Board (concrete, 6ft)': { 'B&Q': 12.00, 'Selco': 10.00, 'Wickes': 11.00 },
+                        'Turf (per sq meter)': { 'B&Q': 6.00, 'Selco': 5.00, 'Wickes': 5.50 },
+                        'Topsoil (tonne bag)': { 'B&Q': 90.00, 'Selco': 80.00, 'Wickes': 85.00 },
+                        'Weed Control Fabric (10m roll)': { 'B&Q': 10.00, 'Selco': 8.00, 'Wickes': 9.00 },
+                    };
+                    // Simulate network delay
+                    setTimeout(() => {
+                        resolve(prices);
+                    }, 1500); 
+                });
+            };
+
+
+            // --- FUNCTIONS ---
+            /**
+             * Updates the displayed unit price for a given material row.
+             * @param {HTMLElement} row The material row element.
+             */
+            const updatePriceDisplay = (row) => {
+                const materialType = row.querySelector('.material-type').value;
+                const supplier = row.querySelector('.supplier-select').value;
+                const priceDisplay = row.querySelector('.unit-price-display');
+                
+                const price = materialCosts[materialType]?.[supplier] || 0;
+                priceDisplay.textContent = `£${price.toFixed(2)}`;
+            };
+
+            /**
+             * Adds event listeners to a material row to update the price display on change.
+             * @param {HTMLElement} row The material row element.
+             */
+            const addRowListeners = (row) => {
+                const materialTypeSelect = row.querySelector('.material-type');
+                const supplierSelect = row.querySelector('.supplier-select');
+                
+                materialTypeSelect.addEventListener('change', () => updatePriceDisplay(row));
+                supplierSelect.addEventListener('change', () => updatePriceDisplay(row));
+                
+                row.querySelector('.remove-material-btn').addEventListener('click', (e) => {
+                    if (materialsList.children.length > 1) {
+                         e.target.closest('.material-row').remove();
+                    }
+                });
+            };
+            
+            /**
+             * Adds a new material row to the list.
+             */
+            const addMaterialRow = () => {
+                const firstRow = materialsList.querySelector('.material-row');
+                const newRow = firstRow.cloneNode(true);
+                newRow.querySelector('.quantity-input').value = '1';
+                addRowListeners(newRow);
+                materialsList.appendChild(newRow);
+                updatePriceDisplay(newRow); // Set initial price for the new row
+            };
+
+            /**
+             * Calculates the total costs and updates the UI.
+             */
+            const calculateCosts = () => {
+                try {
+                    // Reset error message
+                    errorMessage.classList.add('hidden');
+                    errorMessage.textContent = '';
+                    
+                    let materialsTotal = 0;
+                    const materialRows = materialsList.querySelectorAll('.material-row');
+                    
+                    // 1. Calculate Materials Cost
+                    materialRows.forEach(row => {
+                        const materialType = row.querySelector('.material-type').value;
+                        const quantity = parseFloat(row.querySelector('.quantity-input').value);
+                        const supplier = row.querySelector('.supplier-select').value;
+                        
+                        if (isNaN(quantity) || quantity < 0) {
+                            throw new Error('Please enter a valid, non-negative quantity for all materials.');
+                        }
+
+                        const price = materialCosts[materialType][supplier];
+                        materialsTotal += quantity * price;
+                    });
+
+                    // 2. Calculate Labor Cost
+                    const numWorkers = parseFloat(document.getElementById('num-workers').value);
+                    const numDays = parseFloat(document.getElementById('num-days').value);
+                    const dayRate = parseFloat(document.getElementById('day-rate').value);
+
+                    if (isNaN(numWorkers) || isNaN(numDays) || isNaN(dayRate) || numWorkers < 0 || numDays < 0 || dayRate < 0) {
+                         throw new Error('Please enter valid, non-negative numbers for labor fields.');
+                    }
+                    const laborTotal = numWorkers * numDays * dayRate;
+                    
+                    // 3. Calculate Subtotal
+                    const subTotal = materialsTotal + laborTotal;
+
+                    // 4. Calculate VAT
+                    const addVat = document.getElementById('add-vat').checked;
+                    const vatAmount = addVat ? subTotal * 0.20 : 0;
+                    document.getElementById('vat-row').classList.toggle('hidden', !addVat);
+
+                    // 5. Calculate Contingency
+                    const contingencyPercent = parseFloat(document.getElementById('contingency').value);
+                    if (isNaN(contingencyPercent) || contingencyPercent < 0) {
+                        throw new Error('Please enter a valid, non-negative percentage for contingency.');
+                    }
+                    const contingencyAmount = subTotal * (contingencyPercent / 100);
+
+                    // 6. Calculate Grand Total
+                    const grandTotal = subTotal + vatAmount + contingencyAmount;
+
+                    // --- UPDATE UI ---
+                    document.getElementById('materials-total').textContent = `£${materialsTotal.toFixed(2)}`;
+                    document.getElementById('labor-total').textContent = `£${laborTotal.toFixed(2)}`;
+                    document.getElementById('sub-total').textContent = `£${subTotal.toFixed(2)}`;
+                    document.getElementById('vat-amount').textContent = `£${vatAmount.toFixed(2)}`;
+                    document.getElementById('contingency-amount').textContent = `£${contingencyAmount.toFixed(2)}`;
+                    document.getElementById('grand-total').textContent = `£${grandTotal.toFixed(2)}`;
+                    
+                    resultsSection.classList.remove('hidden');
+
+                } catch (error) {
+                    errorMessage.textContent = error.message;
+                    errorMessage.classList.remove('hidden');
+                    resultsSection.classList.add('hidden');
+                }
+            };
+            
+            /**
+             * Initializes the application after prices are fetched.
+             */
+            const initializeApp = (prices) => {
+                materialCosts = prices;
+                console.log('Prices successfully fetched and loaded.');
+                
+                // Hide loading overlay and enable the form
+                loadingOverlay.classList.add('hidden');
+                addMaterialBtn.disabled = false;
+                
+                // Add listeners to the initial row and set its price
+                const initialRow = document.querySelector('.material-row');
+                addRowListeners(initialRow);
+                updatePriceDisplay(initialRow);
+
+                addMaterialBtn.addEventListener('click', addMaterialRow);
+                calculateBtn.addEventListener('click', calculateCosts);
+            };
+
+            // --- INITIALIZATION ---
+            fetchPricesFromAPI()
+                .then(initializeApp)
+                .catch(error => {
+                    console.error("Failed to fetch prices:", error);
+                    loadingOverlay.innerHTML = '<p class="text-red-600 font-semibold">Could not load material prices. Please refresh the page.</p>';
+                });
+        });
+    </script>
+
+</body>
+</html>
