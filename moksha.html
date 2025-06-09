@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moksha Pictures</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #111111;
+            color: #f1f1f1;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Oswald', sans-serif;
+        }
+        .hero-bg {
+            background-image: url('https://placehold.co/1920x1080/000000/FFFFFF?text=Moksha+Pictures');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .film-card-overlay {
+            transition: background-color 0.3s ease;
+        }
+        .film-card:hover .film-card-overlay {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .film-card .play-icon {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+        }
+        .film-card:hover .play-icon {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-black bg-opacity-80 backdrop-blur-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-3xl font-bold tracking-wider uppercase">Moksha Pictures</a>
+            <div class="space-x-8 text-lg hidden md:flex">
+                <a href="#about" class="hover:text-amber-400 transition-colors">About</a>
+                <a href="#portfolio" class="hover:text-amber-400 transition-colors">Portfolio</a>
+                <a href="#contact" class="hover:text-amber-400 transition-colors">Contact</a>
+            </div>
+             <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </nav>
+         <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#about" class="block py-2 px-6 text-sm hover:bg-gray-800">About</a>
+            <a href="#portfolio" class="block py-2 px-6 text-sm hover:bg-gray-800">Portfolio</a>
+            <a href="#contact" class="block py-2 px-6 text-sm hover:bg-gray-800">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg h-screen flex items-center justify-center">
+        <div class="text-center bg-black bg-opacity-50 p-8 rounded-lg">
+            <h1 class="text-6xl md:text-8xl font-bold uppercase tracking-widest">Storytelling through Lens</h1>
+            <p class="mt-4 text-xl text-gray-300">Producing compelling narratives that captivate and inspire.</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6 text-center max-w-4xl">
+            <h2 class="text-4xl font-bold uppercase mb-4">About Moksha Pictures</h2>
+            <div class="w-24 h-1 bg-amber-400 mx-auto mb-8"></div>
+            <p class="text-lg text-gray-400 leading-relaxed">
+                Moksha Pictures is a production house dedicated to crafting high-quality films that resonate with audiences worldwide. From gripping dramas to breathtaking documentaries, our passion is to bring unique visions to life. We believe in the power of film to evoke emotion, provoke thought, and ultimately, to connect us all.
+            </p>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold uppercase text-center mb-4">Our Work</h2>
+            <div class="w-24 h-1 bg-amber-400 mx-auto mb-12"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Film Card 1 -->
+                <div class="film-card bg-gray-800 rounded-lg overflow-hidden shadow-lg group">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/334155/FFFFFF?text=Film+Still+1" alt="Film Still" class="w-full h-56 object-cover">
+                        <div class="film-card-overlay absolute inset-0 flex items-center justify-center">
+                            <!-- Replace '#' with your trailer link (e.g., a YouTube embed link) -->
+                            <a href="#" target="_blank" class="play-icon text-white">
+                                <i class="fas fa-play-circle text-6xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2">Echoes of Silence</h3>
+                        <p class="text-gray-400">A gripping tale of a detective haunted by a past case that was never solved.</p>
+                        <!-- Add more images for a gallery if needed -->
+                    </div>
+                </div>
+
+                <!-- Film Card 2 -->
+                <div class="film-card bg-gray-800 rounded-lg overflow-hidden shadow-lg group">
+                     <div class="relative">
+                        <img src="https://placehold.co/600x400/4a2c54/FFFFFF?text=Film+Still+2" alt="Film Still" class="w-full h-56 object-cover">
+                        <div class="film-card-overlay absolute inset-0 flex items-center justify-center">
+                            <a href="#" target="_blank" class="play-icon text-white">
+                                <i class="fas fa-play-circle text-6xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2">The Crimson Compass</h3>
+                        <p class="text-gray-400">An adventure that follows a lost map to a mythical treasure, challenging the bonds of friendship.</p>
+                    </div>
+                </div>
+
+                <!-- Film Card 3 -->
+                <div class="film-card bg-gray-800 rounded-lg overflow-hidden shadow-lg group">
+                     <div class="relative">
+                        <img src="https://placehold.co/600x400/1e40af/FFFFFF?text=Film+Still+3" alt="Film Still" class="w-full h-56 object-cover">
+                        <div class="film-card-overlay absolute inset-0 flex items-center justify-center">
+                           <a href="#" target="_blank" class="play-icon text-white">
+                                <i class="fas fa-play-circle text-6xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2">Sundown Boulevard</h3>
+                        <p class="text-gray-400">A neo-noir mystery set in the fading glamour of 1970s Los Angeles.</p>
+                    </div>
+                </div>
+                
+                <!-- Add more film cards as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="text-4xl font-bold uppercase text-center mb-4">Get In Touch</h2>
+            <div class="w-24 h-1 bg-amber-400 mx-auto mb-12"></div>
+            
+            <div class="bg-gray-800 p-8 rounded-lg shadow-xl text-center">
+                <p class="text-lg text-gray-400 mb-6">Have a project in mind? Let's talk about it.</p>
+                
+                <!-- Contact Info Display -->
+                <div id="contact-info-display" class="text-xl space-y-4">
+                    <p><i class="fas fa-envelope mr-3 text-amber-400"></i><span id="email-display">producer@example.com</span></p>
+                    <p><i class="fas fa-phone mr-3 text-amber-400"></i><span id="phone-display">+44 123 456 7890</span></p>
+                </div>
+
+                <!-- Contact Info Edit Form (hidden by default) -->
+                <div id="contact-info-edit" class="hidden mt-6 space-y-4 max-w-md mx-auto">
+                    <div>
+                        <label for="email-input" class="block text-left text-sm font-medium text-gray-300">Email Address</label>
+                        <input type="email" id="email-input" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-amber-400 focus:border-amber-400">
+                    </div>
+                    <div>
+                        <label for="phone-input" class="block text-left text-sm font-medium text-gray-300">Phone Number</label>
+                        <input type="tel" id="phone-input" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-amber-400 focus:border-amber-400">
+                    </div>
+                </div>
+                
+                <!-- Edit/Save Button -->
+                <div class="mt-8">
+                    <button id="edit-contact-btn" class="bg-amber-400 text-gray-900 font-bold py-2 px-6 rounded-md hover:bg-amber-500 transition-colors">Edit Contact Info</button>
+                    <button id="save-contact-btn" class="hidden bg-green-500 text-white font-bold py-2 px-6 rounded-md hover:bg-green-600 transition-colors">Save Changes</button>
+                    <button id="cancel-contact-btn" class="hidden bg-red-500 text-white font-bold py-2 px-6 rounded-md hover:bg-red-600 transition-colors ml-2">Cancel</button>
+                </div>
+                 <p id="save-note" class="text-xs text-gray-500 mt-4 hidden">Note: Changes are saved in your browser. They won't be visible to other visitors.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8">
+        <div class="container mx-auto px-6 text-center text-gray-500">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="text-2xl hover:text-amber-400 transition-colors"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="text-2xl hover:text-amber-400 transition-colors"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-2xl hover:text-amber-400 transition-colors"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-2xl hover:text-amber-400 transition-colors"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p>&copy; 2024 Moksha Pictures. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Mobile Menu ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // --- Editable Contact Info Logic ---
+            const editBtn = document.getElementById('edit-contact-btn');
+            const saveBtn = document.getElementById('save-contact-btn');
+            const cancelBtn = document.getElementById('cancel-contact-btn');
+
+            const displayDiv = document.getElementById('contact-info-display');
+            const editDiv = document.getElementById('contact-info-edit');
+
+            const emailDisplay = document.getElementById('email-display');
+            const phoneDisplay = document.getElementById('phone-display');
+            
+            const emailInput = document.getElementById('email-input');
+            const phoneInput = document.getElementById('phone-input');
+            const saveNote = document.getElementById('save-note');
+
+            // Function to load data from localStorage
+            const loadContactInfo = () => {
+                const email = localStorage.getItem('moksha-email') || 'producer@example.com';
+                const phone = localStorage.getItem('moksha-phone') || '+44 123 456 7890';
+                
+                emailDisplay.textContent = email;
+                phoneDisplay.textContent = phone;
+                
+                emailInput.value = email;
+                phoneInput.value = phone;
+            };
+            
+            // Load info on page start
+            loadContactInfo();
+
+            // Event listener for Edit button
+            editBtn.addEventListener('click', () => {
+                // Switch to edit mode
+                displayDiv.classList.add('hidden');
+                editDiv.classList.remove('hidden');
+                
+                editBtn.classList.add('hidden');
+                saveBtn.classList.remove('hidden');
+                cancelBtn.classList.remove('hidden');
+                saveNote.classList.remove('hidden');
+            });
+
+            // Event listener for Save button
+            saveBtn.addEventListener('click', () => {
+                // Save to localStorage
+                localStorage.setItem('moksha-email', emailInput.value);
+                localStorage.setItem('moksha-phone', phoneInput.value);
+
+                // Update display
+                loadContactInfo();
+
+                // Switch back to display mode
+                displayDiv.classList.remove('hidden');
+                editDiv.classList.add('hidden');
+                
+                editBtn.classList.remove('hidden');
+                saveBtn.classList.add('hidden');
+                cancelBtn.classList.add('hidden');
+                saveNote.classList.add('hidden');
+            });
+            
+             // Event listener for Cancel button
+            cancelBtn.addEventListener('click', () => {
+                // Discard changes by reloading from localStorage
+                loadContactInfo();
+                
+                 // Switch back to display mode
+                displayDiv.classList.remove('hidden');
+                editDiv.classList.add('hidden');
+                
+                editBtn.classList.remove('hidden');
+                saveBtn.classList.add('hidden');
+                cancelBtn.classList.add('hidden');
+                saveNote.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
