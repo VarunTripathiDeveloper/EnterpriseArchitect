@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAP EA Certification Practice Exam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .question-card {
+            border-left: 4px solid;
+        }
+        .correct {
+            border-left-color: #22c55e; /* green-500 */
+        }
+        .incorrect {
+            border-left-color: #ef4444; /* red-500 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="bg-white p-6 rounded-lg shadow-md mb-8 sticky top-0 z-10 flex flex-col md:flex-row justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800">SAP Enterprise Architect - Practice Exam</h1>
+                <p class="text-gray-600">38 questions | 60 Minutes</p>
+            </div>
+            <div class="flex items-center gap-4 mt-4 md:mt-0">
+                <div id="timer" class="text-2xl font-bold text-blue-600 bg-blue-100 px-4 py-2 rounded-lg">
+                    60:00
+                </div>
+                <button id="stop-timer-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md transition-colors">Stop Timer</button>
+                <button id="resume-timer-btn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md transition-colors hidden">Resume Timer</button>
+            </div>
+        </header>
+
+        <main id="exam-container">
+            <!-- Questions will be injected here by JavaScript -->
+            <div id="questions-wrapper" class="space-y-6"></div>
+
+            <div class="mt-8 text-center">
+                <button id="submit-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-12 rounded-lg text-xl shadow-lg transition-all transform hover:scale-105">
+                    Submit Exam
+                </button>
+            </div>
+        </main>
+
+        <section id="results-container" class="hidden">
+            <div class="bg-white p-8 rounded-lg shadow-md text-center">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Exam Results</h2>
+                <p class="text-2xl text-gray-700">Your Score:</p>
+                <p id="score" class="text-6xl font-bold text-blue-600 my-4">0 / 38</p>
+                <p id="percentage" class="text-xl text-gray-600 mb-8"></p>
+                <button id="restart-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-md">Restart Exam</button>
+            </div>
+
+            <div id="evaluation-wrapper" class="mt-8">
+                <h3 class="text-3xl font-bold text-gray-800 mb-6">Incorrect Answers Review</h3>
+                <!-- Incorrect answers will be injected here -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Questions sourced directly from the user-provided 'Question Paper.docx' document.
+            const questions = [
+                {
+                    id: 1,
+                    text: "Green Elk & Company is the world's leading manufacturer of agricultural and forestry machinery. The former company slogan \"Elk always runs\" has recently been changed to 'Elk feeds the world'. One of Green Elk's strategic goals is to Increase its revenue in the emerging markets of China, India, and other parts of Asia by 80% within three years. This requires a new business model that caters to significantly smaller farms with limited budgets. The CIO asks you, the Chief Enterprise Architect, to present an Architecture Roadmap that addresses the business challenge. According to the SAP Enterprise Architecture Framework, what is the best answer?",
+                    options: {
+                        a: "Create a work breakdown structure to identify milestones, key deliverables and resources to outline the planned transformation.",
+                        b: "Reuse the artifacts of previous phases as input for creating roadmaps. Focus on the Target Architecture and define an application architecture roadmap.",
+                        c: "Reuse the artifacts of previous phases as input for creating roadmaps. Focus on the Business Strategy Map with business capabilities and initiatives and define a business architecture roadmap.",
+                        d: "Reuse the artifacts of previous phases as input for creating roadmaps. Start with a roadmap construction table, by defining initiatives and business outcomes, and detailing the business capabilities and solutions, to create two versions of a roadmap (outcome-based and application-specific)."
+                    },
+                    answer: "d",
+                    type: "single"
+                },
+                {
+                    id: 2,
+                    text: "Which of the following set of artifacts does SAP provide as part of the SAP Reference Solution Architecture content?",
+                    options: {
+                        a: "Solution Value Flow Diagram/Solution Process Flow Diagram/Solution Component Diagram/Solution Data Flow Diagram.",
+                        b: "Solution Context Diagram/Solution Component Diagram/Solution Application Use-Case Diagram/Solution Value Flow Diagram.",
+                        c: "Solution Value Flow Diagram/Solution Process Flow Diagram/Solution Component Diagram."
+                    },
+                    answer: "a", // As per user doc
+                    type: "single"
+                },
+                {
+                    id: 3,
+                    text: "The CIO of Wanderlust strongly feels that the seldom-used legacy Marketing application cannot be the platform to rejuvenate their online marketing business. As Chief Enterprise Architect, the CIO has entrusted you with the responsibility of finding a suitable replacement that can support all current processes and also address the issues plaguing the existing application. Which of the following should you do to conclusively shortlist possible applications to replace the existing one? (Select 2)",
+                    options: {
+                        a: "Understand the features of leading online marketing applications available in the market through product demonstrations and rank the applications in terms of features.",
+                        b: "Adopt a process centric approach, relate Wanderlust processes to industry standard processes, and identify applications/solutions which deliver such processes.",
+                        c: "Start with current processes, map business capabilities to these processes, and identify which application(s) in the market can deliver such capabilities.",
+                        d: "Compare the costs of those market leading online marketing applications and rank the top applications in terms of license, implementation, maintenance and subscription cost."
+                    },
+                    answer: ["b", "c"],
+                    type: "multiple"
+                },
+                {
+                    id: 4,
+                    text: "When creating an application architecture roadmap, the WHAT and WHERE are defined in a rather straightforward way, while the WHOM may differ by context. Multiple roadmap clusters may apply a variety of WHOM dimensions. For example, procurement vs. asset management. Which of the following definitions are correct? (Select 3)",
+                    options: {
+                        a: "Asset Classes/Vehicles, Production Machines, Office Equipment",
+                        b: "Material Groups/Products, raw materials. Spare parts/Direct Materials, indirect materials",
+                        c: "Groups of Persons/Permanent Staff, Contracted Staff, Students/Business Expense/Operational expenditure/Capital expenditure",
+                        d: "Working model/Home office, head quarter, affiliate"
+                    },
+                    answer: ["a", "b", "d"],
+                    type: "multiple"
+                },
+                {
+                    id: 5,
+                    text: "Wanderlust CIO has asked you to decide on an application to replace your existing online marketing application. Based on the provided table of Goals, Business Capabilities, and Applications, which of the following combinations would you recommend? (Select 2)",
+                    options: {
+                        a: "2-A-4, 1-F-2",
+                        b: "2-E-3, 2-G-3, 1-B-3",
+                        c: "1-D-3, 1-H-2",
+                        d: "1-B-3, 1-C-3"
+                    },
+                    answer: ["b", "d"],
+                    type: "multiple"
+                },
+                {
+                    id: 6,
+                    text: "What kind of applications can you develop with SAP Business Application Studio?",
+                    options: {
+                        a: "SAPUI5 (SAP Fiori) applications and ABAP applications",
+                        b: "ABAP applications",
+                        c: "SAPUI5 (SAP Fiori) applications"
+                    },
+                    answer: "c", // As per user doc
+                    type: "single"
+                },
+                {
+                    id: 7,
+                    text: "Your company adapts SAP's Integration Solution Advisory Methodology (ISA-M) as an Integration Solution Playbook. In your role as Lead Enterprise Architect, you are asked to decide which integration approach to take for this solution. Which of the following approaches is recommended by SAP ISA-M for identifying an integration solution and strategy?",
+                    options: {
+                        a: "1. Document architecture, 2. Scope focus areas, 3. Find technology, 4. Define best practices, 5. Rollout.",
+                        b: "1. Retrieve documentation, 2. Assess for re-use, 3. Identify gaps, 4. Define best practices.",
+                        c: "1. Document architecture, 2. Scope focus areas, 3. Identify use-cases (agnostic), 4. Map patterns to technology, 5. Define Best Practices, 6. Enable Empowerment."
+                    },
+                    answer: "c",
+                    type: "single"
+                },
+                {
+                    id: 8,
+                    text: "Green Elk & Company is the world's leading manufacturer of agricultural and forestry machinery. The former company slogan \"Elk always runs\" has recently been changed to \"Elk feeds the world\". One of Green Elk's strategic goals is to increase its revenue in the emerging markets of China, India, and other parts of Asia by 80% within three years. This requires a new business model that caters to significantly smaller farms with limited budgets You are the Chief Enterprise Architect and the decision was taken to implement regional S/4HANA productive systems while ensuring a high degree of standardization. Which of the following implementation approach would you consider best in this case?",
+                    options: {
+                        a: "Phased by Application",
+                        b: "Big Bang",
+                        c: "Small buck",
+                        d: "Phased by Company"
+                    },
+                    answer: "d",
+                    type: "single"
+                },
+                {
+                    id: 9,
+                    text: "The CIO asks you to assess the new business model for smaller farms. Given the principle and statement, which of the following combinations of rationale and implication do you consider well-defined? Principle: Use packaged solutions, in a standard way. Statement: Buy packaged solutions that support our business requirements and use them in a standard way.",
+                    options: {
+                        a: "Rationale: Process simplified by packaged software. Implication: Reuse vendor best practices, apply guidelines, avoid custom developments.",
+                        b: "Rationale: If custom dev is required, adhere to best practices. Implication: Process simplified by packaged software.",
+                        c: "Rationale: Process simplified, lower TCO. Implication: Deviations from standard require additional cost, non-standard solutions block business models.",
+                        d: "Rationale: Process simplified, lower TCO, increase innovation capability. Implication: If custom dev is required, adhere to best practices (extensibility concept), reuse before buy/build, enable easier cloud transition."
+                    },
+                    answer: "d",
+                    type: "single"
+                },
+                {
+                    id: 10,
+                    text: "With the lead to cash Business capabilities identified, as chief Enterprise Architect the Wanderlust CIO has asked your capabilities. The SAP Enterprise Architect has shared a snapshot for your reference. What is the pertinent SAP Solution in the market to Lead Business Process module of the Lead to cash E2E Process?",
+                    options: {
+                        a: "SAP Sales Cloud version 2",
+                        b: "SAP Omnichannel Promotion Pricing",
+                        c: "SAP customer data cloud",
+                        d: "SAP Emarsys Customer engagement"
+                    },
+                    answer: "d",
+                    type: "single"
+                },
+                {
+                    id: 11,
+                    text: "As the Chief Enterprise Architect of your company you have been asked by the CIO to apply agile principles instead of following the sequential phases of TOGAF's ADM. How do you respond?",
+                    options: {
+                        a: "The SAP EA Framework combines sequential and agile principles, but agile can be applied only to Application Architecture.",
+                        b: "It is reasonable to apply an agile methodology for the most urgent tasks and switch to the process as guided by the SAP EA Framework later.",
+                        c: "It is essential to fully understand the business needs and review the business architecture before going to the next phase. In implementation, agile approaches can provide quick wins.",
+                        d: "The TOGAF ADM already embraces agile principles within and across phases and generally follows a cyclic approach. The SAP EA Framework builds on that and is especially suitable for organizations that follow agile principles."
+                    },
+                    answer: "d",
+                    type: "single"
+                },
+                {
+                    id: 12,
+                    text: "Wanderlust's numbers for order booking have been on a free-fall. To counter this, the CEO and CIO want to revive their online channel, but the ecosystem has broken down. As Chief Enterprise Architect, you have been approached by the CEO to document the online marketing business ecosystem first. Which of the following actions would you do to meet your CEO's request? (Select 2)",
+                    options: {
+                        a: "Identify a suitable online marketing application that is better integrated with SAP CRM and ECC.",
+                        b: "Identify the online marketing business capabilities and processes.",
+                        c: "Identify the key organizational units, partners, and stakeholder groups that make up the online marketing ecosystem.",
+                        d: "Draw an organization map highlighting the inter relationships and hierarchies."
+                    },
+                    answer: ["b", "c"],
+                    type: "multiple"
+                },
+                {
+                    id: 13,
+                    text: "Which runtime environments does SAP directly support on SAP BTP?",
+                    options: {
+                        a: "SAP BTP, Cloud Foundry environment / SAP BTP, ABAP environment / SAP BTP, Kyma runtime",
+                        b: "Kubernetes / SAP BTP, ABAP environment",
+                        c: "OpenJDK for Java applications / Openshift for Kubernetes"
+                    },
+                    answer: "a",
+                    type: "single"
+                },
+                {
+                    id: 14,
+                    text: "The Wanderlust CIO wants to focus less on marketing strategy and planning, to instead prioritize marketing implementation goals. What are relevant combinations of business activities and goals based on the provided graphic? (Select 2)",
+                    options: {
+                        a: "Develop market strategy - Run effective and high visibility campaigns.",
+                        b: "Analyse and respond to customer insight - Increase cross selling opportunities through online recommendations.",
+                        c: "Execute promotional activities - Run effective and high visibility campaigns.",
+                        d: "Design and manage a customer loyalty program - Increase cross selling opportunities through online recommendations."
+                    },
+                    answer: ["b", "c"],
+                    type: "multiple"
+                },
+                {
+                    id: 15,
+                    text: "Which programming model would you suggest that ABAP developers use when SAP extensions should be built following the clean-core strategy?",
+                    options: {
+                        a: "SAP Cloud Application Programming (CAP)",
+                        b: "SAP Classic Extensibility model",
+                        c: "RESTful Application Programming (RAP)"
+                    },
+                    answer: "c",
+                    type: "single"
+                },
+                {
+                    id: 16,
+                    text: "You, as the Chief Enterprise Architect of Wanderlust GmbH, have been trying to formulate the Business Strategy Map. You are currently working on the strategic objective to \"Increase supply reliability of Lithium batteries\". Arrange the elements of the Business Strategy Map into the right order that shows the dependencies between these elements.",
+                    options: {
+                        a: "Goal: Streamline internal supplies -> Value Driver: Halve dependencies -> Capability: Plan supply based on demand -> Initiative: Implement SAP IBP",
+                        b: "Initiative -> Capability -> Value Driver -> Goal",
+                        c: "Value Driver -> Goal -> Capability -> Initiative",
+                        d: "Capability -> Initiative -> Goal -> Value Driver"
+                    },
+                    answer: "a",
+                    type: "single"
+                },
+                {
+                    id: 17,
+                    text: "Which of the following roles are missing from Wanderlust's current Enterprise Architecture practice structure? (Select 2)",
+                    options: {
+                        a: "Data Architect",
+                        b: "Architecture Board",
+                        c: "Application Architect",
+                        d: "Business Architect"
+                    },
+                    answer: ["c", "d"],
+                    type: "multiple"
+                },
+                {
+                    id: 18,
+                    text: "As Chief Enterprise Architect of Wanderlust GmbH, you have just finished documenting the business ecosystem around online marketing. The CEO is asking for a suitable artifact to rejuvenate online marketing with a set of employees and partners. What would you do to be ready with the right information in this situation?",
+                    options: {
+                        a: "Extend the organization map into a statement of architecture work.",
+                        b: "Create a stakeholder map.",
+                        c: "Extend the organizational map by detailing the organization units, partners and stakeholder groups further into business roles and personas.",
+                        d: "Extend the business ecosystem into business capabilities and processes."
+                    },
+                    answer: "c",
+                    type: "single"
+                },
+                {
+                    id: 19,
+                    text: "As an Enterprise Architect, you must ensure that future extensions to the Digital Core of the enterprise guarantee stable and reliable operations. The architecture guideline demands to follow the clean-core strategy. What does this demand ensure and entail?",
+                    options: {
+                        a: "Extensions do not break an upgrade, and upgrades do not break an extension. Such extensions can access SAP business objects only through well defined, upgrade-stable interfaces.",
+                        b: "Extensions may access SAP tables directly and in a well-documented, clean way. Therefore, the code of extensions can be adapted quickly to accommodate future changes.",
+                        c: "Extensions are kept strictly separate from the SAP application, Extensions are developed in accordance with the SAP Application Extension Methodology. Side-by-side extensibility options are always preferable to on-stack extensibility options."
+                    },
+                    answer: "a",
+                    type: "single"
+                },
+                {
+                    id: 20,
+                    text: "In the SAP Enterprise Architecture Framework, which of the following artifacts are part of the opportunities & solution phase? (Select 3)",
+                    options: {
+                        a: "Business Architecture Roadmap",
+                        b: "Work Breakdown structure",
+                        c: "Implementation Roadmap",
+                        d: "Application Architecture Roadmap",
+                        e: "Migration plan"
+                    },
+                    answer: ["a", "b", "d"],
+                    type: "multiple"
+                },
+                {
+                    id: 21,
+                    text: "Which artifact from the SAP Reference Solution Architecture shows which data objects are exchanged between SAP application components in a given end-to-end scenario?",
+                    options: {
+                        a: "SAP Data Object Diagram, which is available from SAP API Business Accelerator Hub (api.sap.com)",
+                        b: "SAP Data Flow Diagram, which is available from SAP API Business Accelerator Hub (api.sap.com)",
+                        c: "SAP Data Component Diagram, which is available in SAP Signavio Process Explorer"
+                    },
+                    answer: "b",
+                    type: "single"
+                },
+                {
+                    id: 22,
+                    text: "Which integration styles does SAP's Integration Advisory Methodology (ISA-M) cover in general?",
+                    options: {
+                        a: "Process Integration/Data Integration/Analytics Integration/User Integration/Thing Integration.",
+                        b: "UI Integration/Process Integration/Data Integration/Thing Integration.",
+                        c: "Cloud2Cloud/Cloud2OnPremise/Cloud2Cloud/User2On Premise/User2Cloud/Thing2On Premise/Thing2Cloud"
+                    },
+                    answer: "a",
+                    type: "single"
+                },
+                {
+                    id: 23,
+                    text: "Wanderlust's CIO asks you to evaluate the SAP Enterprise Architecture Framework. At Wanderlust GmbH a non-SAP EA tool is used, How would you proceed with the request and why? (Select 2)",
+                    options: {
+                        a: "I tell the CIO that the SAP EA Framework cannot be used because the Wanderlust GmbH uses a non-SAP EA tool. Therefore, further evaluation is not necessary.",
+                        b: "I evaluate both the SAP EA Methodology and TOGAF ADM. I recommend the approach that fits best Wanderlust's requirements.",
+                        c: "I tell the CIO that the SAP EA Framework also encompasses architecture services and practices. Based on a cost-benefit analysis I consider using the services and practices that fit best the project.",
+                        d: "I check whether the SAP Reference Business Architecture and Reference Solution Architecture Content can help to either define the scope of the architecture work or describe a target architecture structure. If they do, I suggest to use the Reference Architecture Content of SAP."
+                    },
+                    answer: ["b", "d"],
+                    type: "multiple"
+                },
+                {
+                    id: 24,
+                    text: "What are important factors of the SAP BTP, Cloud Foundry environment during runtime that you need to consider?",
+                    options: {
+                        a: "Programming language and buildpacks",
+                        b: "CPU capacity and memory size of the application",
+                        c: "Number of users and API calls"
+                    },
+                    answer: "b",
+                    type: "single"
+                },
+                {
+                    id: 25,
+                    text: "As Chief Enterprise Architect, you are asked to select an Enterprise Architecture toolset for Wanderlust GmbH's Enterprise Architecture activities. What are the most critical selection criteria you should consider? (Select 3)",
+                    options: {
+                        a: "The support of data import or export capabilities, to use external reference data.",
+                        b: "The use of already established office applications, to keep the entry hurdle for all authors as low as possible.",
+                        c: "The enforcement of strict order of activities, as defined by an enterprise architecture development method to ensure efficient project executions.",
+                        d: "The support of excellent visualization, to optimally engage with portfolio and business management teams.",
+                        e: "The support of version control in the repository, to manage architecture changes."
+                    },
+                    answer: ["a", "d", "e"],
+                    type: "multiple"
+                },
+                {
+                    id: 26,
+                    text: "Green Elk & Company is the world's leading manufacturer of agricultural and forestry machinery...By applying the Sustainable Business Model Canvas, which sequence of steps is best practice?",
+                    options: {
+                        a: "1. Cost & Revenue -> 2. Customers & Value -> 3. Relationships & Channels -> 4. Activities, Resources & Partners -> 5. Eco-social benefits & costs.",
+                        b: "1. Activities, Resources & Partners -> 2. Customers & Value -> 3. Relationships & Channels -> 4. Revenue & Cost -> 5. Eco-social benefits & costs.",
+                        c: "1. Value propositions -> 2. Relationships & Channels -> 3. Activities, Resources & Partners -> 4. Revenue & Cost -> 5. Eco-social benefits & costs."
+                    },
+                    answer: "c",
+                    type: "single"
+                },
+                {
+                    id: 27,
+                    text: "You are planning to interview the owner of the business unit of finished goods to assess the business strategy. Which of the following sets of questions would you ask?",
+                    options: {
+                        a: "Which technological concepts are necessary? What kind of technologies are available? What should a suitable partner organization look like?",
+                        b: "What are the transformation drivers? What are the business options for the future? What is the vision for the future business model?",
+                        c: "How is the value chain transformed? Which parts must be optimized? What is the competitive advantage? Which business capabilities will be required?",
+                        d: "Which technological concepts are necessary? What does your hyperscaler strategy look like?"
+                    },
+                    answer: "c",
+                    type: "single"
+                },
+                {
+                    id: 28,
+                    text: "The CIO asks you, the Chief Enterprise Architect, to present an architecture vision to address the business challenge. According to the SAP Enterprise Architecture Framework, what is the best approach?",
+                    options: {
+                        a: "1. Assess architecture -> 2. Identify stakeholders & gaps -> 3. Architect against gaps & propose target.",
+                        b: "1. Identify stakeholders & concerns -> 2. Confirm business goals, drivers, and constraints -> 3. Evaluate enterprise capabilities and readiness.",
+                        c: "1. Identify stakeholders & concerns -> 2. Elaborate the new business model with a Canvas -> 3. Evaluate enterprise capabilities.",
+                        d: "1. Identify stakeholders & concerns -> 2. Review existing principles -> 3. Use principles as guardrails."
+                    },
+                    answer: "b",
+                    type: "single"
+                },
+                {
+                    id: 29,
+                    text: "As part of the mapping of a Business Architecture to the Solution Architecture, an Environment & Location Diagram must be developed...you must check which SAP BTP services and which SAP SaaS solutions are available...in which data center of the desired hyperscaler. How do you go about this validation?",
+                    options: {
+                        a: "I use the SAP Business Accelerator Hub (api.sap.com) because it provides all the required information.",
+                        b: "I use the SAP Discovery Center for BTP services and the SAP Trust Center for SaaS solutions.",
+                        c: "I use the SAP Discovery Center to check for both BTP services and SaaS solutions."
+                    },
+                    answer: "b",
+                    type: "single"
+                },
+                {
+                    id: 30,
+                    text: "Which artifacts does SAP provide as part of the SAP Reference Business Architecture content?",
+                    options: {
+                        a: "Business Capability Model/Business Data Model/Business Role Model/Product Map",
+                        b: "Business Process Model/Solution Process Model",
+                        c: "Business Capability Model/Business Process Model"
+                    },
+                    answer: "c",
+                    type: "single"
+                },
+                {
+                    id: 31,
+                    text: "Which of the following set of artifacts does SAP provide as part of the SAP Reference Solution Architecture content?",
+                    options: {
+                        a: "Solution Value Flow Diagram/Solution Process Flow Diagram/Solution Component Diagram/Solution Data Flow Diagram.",
+                        b: "Solution Context Diagram/Solution Component Diagram/Solution Application Use-Case Diagram/Solution Value Flow Diagram.",
+                        c: "Solution Value Flow Diagram/Solution Process Flow Diagram/Solution Component Diagram."
+                    },
+                    answer: "b",
+                    type: "single"
+                },
+                {
+                    id: 32,
+                    text: "As Chief Enterprise Architect, you want to select an extension option that follows SAP's clean-core strategy. What are your recommendations to implement the clean-core strategy best?",
+                    options: {
+                        a: "To follow the clean-core strategy, the so-called 'Developer Extensibility' of S/4HANA isn't allowed. Extensions must use 'Side-by-Side Extensibility'...",
+                        b: "Follow SAP's Tier 1 to Tier 2 extension model, which enables different extension options...",
+                        c: "Use 'Key User Extensibility' functions of S/4HANA for simple extensions...",
+                        d: "Use of public local APIs or public remote APIs for 'Developer Extensibility'."
+                    },
+                    answer: "a", // As per user doc
+                    type: "single"
+                },
+                {
+                    id: 33,
+                    text: "Having identified the appropriate set of Business Activities...what are the most appropriate Business Capabilities? Note: There are 3 correct answers to this question.",
+                    options: {
+                        a: "Marketing Analytics, Recommendation Management",
+                        b: "Account Based Marketing, Lead Management",
+                        c: "Marketing Campaign Management",
+                        d: "Social Media Management",
+                        e: "Marketing Strategy Management, Brand Management"
+                    },
+                    answer: ["a", "c", "d"],
+                    type: "multiple"
+                },
+                {
+                    id: 34,
+                    text: "Why is it useful to create Transition Architectures in the Application Architecture domain?",
+                    options: {
+                        a: "They structure complex application architectures that require multiple changes to existing independent applications...do NOT depend on the existence of others.",
+                        b: "They reduce the total number of solution components...",
+                        c: "They structure complex application architectures that require multiple changes of existing interdependent applications...Some applications/solutions depend on the existence of others."
+                    },
+                    answer: "c",
+                    type: "single"
+                },
+                {
+                    id: 35,
+                    text: "Demand and Supply Planning (SAP IBP) implementation has been identified as a quick win...Which of the following activities should you initiate to conclude the Statement of Architecture Work? Note: There are 3 correct answers to this question.",
+                    options: {
+                        a: "Conduct a Fit Gap Assessment to identify requirements that cannot be met",
+                        b: "Define the Solution Context for the architecture work.",
+                        c: "Conduct a high-level Capability Assessment to identify areas of improvement (business and IT).",
+                        d: "Conduct a technical Proof of Concept to understand features and functionalities of SAP IBP.",
+                        e: "Outline the aspirational Solution Concept to address the stakeholders' needs and business requirements."
+                    },
+                    answer: ["a", "b", "e"], // As per user doc
+                    type: "multiple"
+                },
+                {
+                    id: 36,
+                    text: "As the Chief Enterprise Architect...you have engaged an SAP Enterprise Architect. The SAP Enterprise Architect is using SAP's Business Process Model (BPM) and the Business Capability Model (BCM) while mapping processes to capabilities, how are the two models connected? Note: There are 2 correct answers to this question.",
+                    options: {
+                        a: "Through the E2E Business Process of BPM, which is enabled by the Business Domain of BCM.",
+                        b: "Through the Business Process Module of BPM, which is directly linked to the Business Area of BCM.",
+                        c: "Through the Enterprise Domain, to which both the E2E Business Process of BPM and the Business Domain of BCM are assigned.",
+                        d: "Through the Business Activity of BPM, which is enabled by the Business Capability of BCM."
+                    },
+                    answer: ["a", "d"],
+                    type: "multiple"
+                },
+                {
+                    id: 37,
+                    text: "Why would you recommend building SAP Side-by-Side Extensions to an S/4HANA system based on SAP BTP?",
+                    options: {
+                        a: "Extensions on SAP BTP technology can easily use of S/4HANA eventing.",
+                        b: "Extensions on SAP BTP can maintain SAP user and security context and allow the use of S/4HANA eventing.",
+                        c: "Extensions should be built on SAP BTP because SAP BTP is the only option for building a consistent user experience based on SAP Fiori UX styles."
+                    },
+                    answer: "b",
+                    type: "single"
+                },
+                {
+                    id: 38,
+                    text: "The online marketing channel is targeted only to individual customers...Every confirmed online order must be first checked for ready stock availability and, if unavailable, must go for production scheduling...Which of the following combinations of L2C Business Process Variants and business reasons are the most suitable? Note: There are 2 correct answers to this question.",
+                    options: {
+                        a: "Variant: Lead to Cash-B2C with Make to Stock",
+                        b: "Variant: Lead to Cash-B2B with Make to Order",
+                        c: "Variant: Lead to Cash - Business to Business (B2B) with Make to Stock",
+                        d: "Variant: Lead to Cash - Business to Consumer (B2C) with Make to Order"
+                    },
+                    answer: ["a", "d"],
+                    type: "multiple"
+                },
+            ];
+
+
+            const questionsWrapper = document.getElementById('questions-wrapper');
+            const submitBtn = document.getElementById('submit-btn');
+            const examContainer = document.getElementById('exam-container');
+            const resultsContainer = document.getElementById('results-container');
+            const scoreEl = document.getElementById('score');
+            const percentageEl = document.getElementById('percentage');
+            const evaluationWrapper = document.getElementById('evaluation-wrapper');
+            const restartBtn = document.getElementById('restart-btn');
+            const timerEl = document.getElementById('timer');
+            const stopTimerBtn = document.getElementById('stop-timer-btn');
+            const resumeTimerBtn = document.getElementById('resume-timer-btn');
+
+            let timerInterval;
+            let timeRemaining = 3600; // 60 minutes in seconds
+            let isPaused = false;
+
+            function startTimer() {
+                isPaused = false;
+                timerInterval = setInterval(() => {
+                    if (isPaused) return;
+                    
+                    timeRemaining--;
+                    const minutes = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+                    const seconds = (timeRemaining % 60).toString().padStart(2, '0');
+                    timerEl.textContent = `${minutes}:${seconds}`;
+
+                    if (timeRemaining <= 0) {
+                        clearInterval(timerInterval);
+                        evaluate();
+                    }
+                }, 1000);
+            }
+            
+            function stopTimer() {
+                isPaused = true;
+                stopTimerBtn.classList.add('hidden');
+                resumeTimerBtn.classList.remove('hidden');
+            }
+            
+            function resumeTimer() {
+                isPaused = false;
+                stopTimerBtn.classList.remove('hidden');
+                resumeTimerBtn.classList.add('hidden');
+            }
+
+
+            function renderQuestions() {
+                let questionHTML = '';
+                questions.forEach((q, index) => {
+                    questionHTML += `
+                        <div class="bg-white p-6 rounded-lg shadow-md question-card" id="q-card-${q.id}">
+                            <p class="font-bold text-lg mb-4">${index + 1}. ${q.text}</p>
+                            <div class="space-y-2">
+                    `;
+                    for (const key in q.options) {
+                        const inputType = q.type === 'multiple' ? 'checkbox' : 'radio';
+                        questionHTML += `
+                            <label class="flex items-center p-3 rounded-md hover:bg-gray-50 transition-colors cursor-pointer">
+                                <input type="${inputType}" name="question-${q.id}" value="${key}" class="mr-3 h-4 w-4">
+                                <span>${q.options[key]}</span>
+                            </label>
+                        `;
+                    }
+                    questionHTML += `</div></div>`;
+                });
+                questionsWrapper.innerHTML = questionHTML;
+            }
+
+            function evaluate() {
+                clearInterval(timerInterval);
+                let score = 0;
+                let evaluationHTML = '';
+
+                questions.forEach(q => {
+                    const questionCard = document.getElementById(`q-card-${q.id}`);
+                    let isCorrect = false;
+
+                    if (q.type === 'single') {
+                        const selectedOption = document.querySelector(`input[name="question-${q.id}"]:checked`);
+                        if (selectedOption && selectedOption.value === q.answer) {
+                            score++;
+                            isCorrect = true;
+                        }
+                    } else { // Multiple choice
+                        const selectedOptions = Array.from(document.querySelectorAll(`input[name="question-${q.id}"]:checked`)).map(el => el.value);
+                        // Sort both arrays to ensure order doesn't matter for comparison
+                        if (selectedOptions.length === q.answer.length && selectedOptions.sort().join(',') === q.answer.sort().join(',')) {
+                            score++;
+                            isCorrect = true;
+                        }
+                    }
+                    
+                    if (isCorrect) {
+                        questionCard.classList.add('correct');
+                    } else {
+                        questionCard.classList.add('incorrect');
+                        // Build evaluation block for incorrect answers
+                        let selectedAnswerText = 'No answer';
+                        if (q.type === 'single') {
+                             const selectedEl = document.querySelector(`input[name="question-${q.id}"]:checked`);
+                             if(selectedEl) selectedAnswerText = q.options[selectedEl.value];
+                        } else {
+                            const selectedEls = Array.from(document.querySelectorAll(`input[name="question-${q.id}"]:checked`)).map(el => q.options[el.value]);
+                            if (selectedEls.length > 0) selectedAnswerText = selectedEls.join('<br>');
+                        }
+
+                        let correctAnswerText = '';
+                         if (q.type === 'single') {
+                             correctAnswerText = q.options[q.answer];
+                        } else {
+                            correctAnswerText = q.answer.map(ansKey => q.options[ansKey]).join('<br>');
+                        }
+
+
+                        evaluationHTML += `
+                            <div class="bg-white p-6 rounded-lg shadow-md mb-4">
+                                <p class="font-bold text-lg mb-4">${q.id}. ${q.text}</p>
+                                <div class="space-y-3">
+                                    <div class="bg-red-100 p-3 rounded-md">
+                                        <p class="font-semibold text-red-800">Your Answer:</p>
+                                        <p class="text-red-700">${selectedAnswerText}</p>
+                                    </div>
+                                    <div class="bg-green-100 p-3 rounded-md">
+                                        <p class="font-semibold text-green-800">Correct Answer:</p>
+                                        <p class="text-green-700">${correctAnswerText}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+
+                examContainer.classList.add('hidden');
+                resultsContainer.classList.remove('hidden');
+                scoreEl.textContent = `${score} / ${questions.length}`;
+                const percentage = (score / questions.length) * 100;
+                percentageEl.textContent = `${percentage.toFixed(1)}%`;
+                
+                if(evaluationHTML === '') {
+                    evaluationWrapper.innerHTML = `<div class="bg-green-100 p-6 rounded-lg text-center"><p class="font-bold text-2xl text-green-800">Congratulations! All answers were correct!</p></div>`;
+                } else {
+                    evaluationWrapper.innerHTML = `<h3 class="text-3xl font-bold text-gray-800 mb-6">Incorrect Answers Review</h3>` + evaluationHTML;
+                }
+                
+                window.scrollTo(0, 0);
+            }
+
+            function restart() {
+                timeRemaining = 3600;
+                examContainer.classList.remove('hidden');
+                resultsContainer.classList.add('hidden');
+                stopTimerBtn.classList.remove('hidden');
+                resumeTimerBtn.classList.add('hidden');
+                renderQuestions();
+                startTimer();
+            }
+
+            submitBtn.addEventListener('click', () => {
+                if(confirm('Are you sure you want to submit your answers?')) {
+                    evaluate();
+                }
+            });
+            restartBtn.addEventListener('click', restart);
+            stopTimerBtn.addEventListener('click', stopTimer);
+            resumeTimerBtn.addEventListener('click', resumeTimer);
+
+            // Initial setup
+            renderQuestions();
+            startTimer();
+        });
+    </script>
+</body>
+</html>
